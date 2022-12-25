@@ -1,0 +1,63 @@
+.sliderContainer {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    overflow-x: hidden;
+}
+
+.sliderContainer::-webkit-scrollbar {
+    width: 5px;
+  }
+  .sliderContainer::-webkit-scrollbar-track {
+    background: lightgrey;
+  }
+  .sliderContainer::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 20px;
+    border: 0;
+  }
+
+.sliderElement {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    transition: all 0.5s ease-in-out;
+}
+
+.cart {
+    right: 0;
+    left: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.form {
+    right: -100vw;
+    left: 100vw;
+    transition: all 0.5s ease-in-out;
+}
+
+.toggle {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 300px
+}
+
+.movedCart {
+    left: -100vw;
+    right: 100vw;
+    transition: all 0.5s ease-in-out;
+}
+
+.movedForm {
+    left: 0;
+    right: 0;
+    transition: all 0.5s ease-in-out;
+}

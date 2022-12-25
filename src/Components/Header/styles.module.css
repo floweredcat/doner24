@@ -1,0 +1,35 @@
+.header {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+  padding: 5px 5px 0;
+  flex-wrap: nowrap;
+  z-index: 5;
+  position: fixed;
+  width: calc(100vw - 10px);
+}
+
+.link {
+  color: blue;
+  appearance: none;
+  text-decoration: none;
+  height: 39px;
+  font-size: 15px;
+  line-height: 39px;
+  z-index: 1;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 0px 1px #ccc;
+  align-self: stretch;
+  padding: 0px 15px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+header::-webkit-scrollbar {
+  display: none;
+}
