@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/doner24/static/css/main.4aa9a796.css",
+    "main.js": "/doner24/static/js/main.cde6353a.js",
+    "index.html": "/doner24/index.html",
+    "main.4aa9a796.css.map": "/doner24/static/css/main.4aa9a796.css.map",
+    "main.cde6353a.js.map": "/doner24/static/js/main.cde6353a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4aa9a796.css",
+    "static/js/main.cde6353a.js"
+  ]
+}
