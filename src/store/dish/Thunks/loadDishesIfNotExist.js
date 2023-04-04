@@ -2,12 +2,12 @@ import { dishesSliceActions } from "../../dish/index";
 import { selectDishIds } from "../selectors";
 import { normolizeEntities } from "../../helpers/normolizeEntities";
 
-export const loadDishesIfNotExist = ({id}) => (dispatch, getState) => {
+export const loadDishesIfNotExist = ({idsrv, idfolder}) => (dispatch, getState) => {
   if (selectDishIds(getState())?.length > 0) {
     return;
   }
   const url = new URL(
-    `https://ws.1uno.kz/ws/v1/1/${id}`
+    "https://menu.qr-uno.com/api/menus"
   )
 
   const options = {
@@ -16,7 +16,7 @@ export const loadDishesIfNotExist = ({id}) => (dispatch, getState) => {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify({
-      "s": "select m.id,m.pid,p.name,m.mcena,m.descr,m.img from tbmenu m join d_product p on m.idproduct=p.id",
+      idsrv, idfolder
     }),
   };
   dispatch(dishesSliceActions.startLoading());
@@ -24,6 +24,7 @@ export const loadDishesIfNotExist = ({id}) => (dispatch, getState) => {
   fetch(url, options)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data)
       dispatch(
         dishesSliceActions.successLoading(normolizeEntities(data, "ID"))
       );

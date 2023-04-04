@@ -1,9 +1,11 @@
 import classNames from "classnames";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { loadDishImageById } from "../../store/dish/Thunks/loadDishImageById";
 import styles from "./styles.module.css";
 
 export const Dish = ({ dish, increment, decrement, dishCount, id }) => {
+  const {type} = useParams()
   useEffect(() => {
     loadDishImageById({ id, dishId: dish.ID });
   }, [dish]);
@@ -24,14 +26,13 @@ export const Dish = ({ dish, increment, decrement, dishCount, id }) => {
         <div className={styles.name}>{dish.NAME}</div>
         <div className={styles.price}>{dish.MCENA}</div>
       </div>
-      {!dishCount && (
+      { type && (!dishCount ? (
         <button
           onClick={increment}
           className={classNames(styles.firstAction)}>
           Добавить
         </button>
-      )}
-      {dishCount > 0 && (
+      ) : (
         <div className={styles.actions}>
           <button
             onClick={decrement}
@@ -45,7 +46,7 @@ export const Dish = ({ dish, increment, decrement, dishCount, id }) => {
             +
           </button>
         </div>
-      )}
+      ))}
     </div>
   );
 };

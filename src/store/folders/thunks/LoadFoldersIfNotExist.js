@@ -3,12 +3,13 @@ import { selectFoldersIds } from "../selectors";
 import { normolizeEntities } from "../../helpers/normolizeEntities";
 
 export const loadFoldersIfNotExist =
-  ({ id }) =>
+  ({ idsrv }) =>
   (dispatch, getState) => {
+    console.log(idsrv)
     if (selectFoldersIds(getState())?.length > 0) {
       return;
     }
-    const url = new URL(`https://ws.1uno.kz/ws/v1/1/${id}`);
+    const url = "https://menu.qr-uno.com/api/folders";
 
     const options = {
       method: "POST",
@@ -16,8 +17,8 @@ export const loadFoldersIfNotExist =
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify({
-        s: "select id,pid,name from tbmenu where idproduct is null",
-      }),
+        idsrv
+        }),
     };
     dispatch(foldersSliceActions.startLoading());
 

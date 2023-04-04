@@ -14,7 +14,11 @@ export const App = () => {
           path="/"
           element={<Redirect />}/>
         <Route
-          path="/:id/:type/:value"
+          path="/:idsrv/:type/:value"
+          element={<Header />}
+        />
+          <Route
+          path="/:id"
           element={<Header />}
         />
         <Route

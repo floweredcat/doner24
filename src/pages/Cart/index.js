@@ -5,7 +5,7 @@ import {
 } from "../../store/cart/selectors";
 import { DishContainer } from "../../containers/DishContainer/DishContiner";
 import styles from "./styles.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { cartSliceActions } from "../../store/cart";
 import { useCallback } from "react";
@@ -28,14 +28,15 @@ export const Cart = ({ toggleFunction, result }) => {
         onClick={() => {
           if (window.confirm("Очистить корзину?")) {
             cleanCart();
-            navigate("/");
+            navigate(-1);
           }
         }}
         disabled={cartLenght === 0}
         className={styles.clean}></button>
-      <Link
-        to="/"
-        className={styles.back}></Link>
+      <button
+      type="button"
+        onClick={() => navigate(-1)}
+        className={styles.back}></button>
       <h2 className={classNames(styles.title)}>Корзина</h2>
       {result != 500 && (
         <div className={styles.account}>

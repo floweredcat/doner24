@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { DishContainer } from "../../containers/DishContainer/DishContiner";
 import classNames from "classnames";
 import styles from "./styles.module.css";
@@ -10,9 +10,11 @@ import {
   selectIsDishesLoading,
 } from "../../store/dish/selectors";
 import { useLoadDishes } from "./Hooks/useLoadDishes";
+import { nanoid } from "nanoid";
 
 export const Menu = ({ activeIndex, id }) => {
-  useLoadDishes({id});
+  const {idsrv} = useParams()
+  useLoadDishes({idfolder: id, idsrv});
   const isLoading = useSelector((state) => selectIsDishesLoading(state));
   const cart = useSelector((state) => selectCartLength(state));
   const cartLength = Object.values(cart).reduce((acc, el) => {
@@ -31,7 +33,7 @@ export const Menu = ({ activeIndex, id }) => {
       {dishes?.map((dish) => {
         return (
           <DishContainer
-            key={dish.ID}
+            key={nanoid()}
             dishId={dish.ID}
             id={id}
           />

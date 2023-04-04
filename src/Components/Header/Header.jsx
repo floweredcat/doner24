@@ -11,18 +11,17 @@ import { Loading } from "../../pages/Loading/Loading";
 import { Menu } from "../Menu/Menu";
 import { useLoadFolders } from "./Hooks/useLoadFolders";
 import { useParams } from "react-router-dom";
+import { nanoid } from "nanoid";
 
 export const Header = () => {
-  const {id, type, value} = useParams();
-  console.log(id, type, value)
-  console.log(id)
+  const {idsrv} = useParams();
   const isLoading = useSelector(selectFoldersIsLoading);
   const foldersIds = useSelector(selectFoldersIds);
   const [activeIndex, setActiveIndex] = useState();
   useEffect(() => {
     setActiveIndex(foldersIds[0]);
   }, [foldersIds[0]]);
-  useLoadFolders({id});
+  useLoadFolders({idsrv});
 
   if (isLoading) {
     return <Loading />;
@@ -37,14 +36,14 @@ export const Header = () => {
           return (
             <Folder
               folderId={id}
-              key={id}
+              key={nanoid()}
               setActiveIndex={setActiveIndex}
               activeIndex={activeIndex}
             />
           );
         })}
       </header>
-      <Menu activeIndex={activeIndex} id={id} />
+      <Menu activeIndex={activeIndex} id={idsrv} />
     </>
   );
 };
