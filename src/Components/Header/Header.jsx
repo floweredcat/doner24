@@ -10,13 +10,19 @@ import classNames from "classnames";
 import { Loading } from "../../pages/Loading/Loading";
 import { Menu } from "../Menu/Menu";
 import { useLoadFolders } from "./Hooks/useLoadFolders";
+import { useParams } from "react-router-dom";
 
 export const Header = () => {
+  const {id, type, value} = useParams();
+  console.log(id, type, value)
+  console.log(id)
   const isLoading = useSelector(selectFoldersIsLoading);
   const foldersIds = useSelector(selectFoldersIds);
   const [activeIndex, setActiveIndex] = useState();
-  useEffect(() => { setActiveIndex(foldersIds[0])}, [foldersIds[0]] )
-  useLoadFolders();
+  useEffect(() => {
+    setActiveIndex(foldersIds[0]);
+  }, [foldersIds[0]]);
+  useLoadFolders({id});
 
   if (isLoading) {
     return <Loading />;
@@ -38,7 +44,7 @@ export const Header = () => {
           );
         })}
       </header>
-      <Menu activeIndex={activeIndex} />
+      <Menu activeIndex={activeIndex} id={id} />
     </>
   );
 };

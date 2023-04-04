@@ -11,6 +11,7 @@ export const selectDishNameById = (state, { dishId }) =>
 export const selectIsDishesLoading = (state) =>
   selectDishModule(state).status === "loading";
 
-  export const selectDishes = (state) => selectDishModule(state).entities
+export const selectDishes = (state) => selectDishModule(state).entities;
 
-export const selectDishPrice = (state, {dishId}) => selectDishes(state)[dishId].MCENA
+export const selectDishPrice = (state, { dishId }) =>
+  selectDishes(state)[dishId].MCENA;

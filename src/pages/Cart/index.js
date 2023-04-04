@@ -18,11 +18,9 @@ export const Cart = ({ toggleFunction, result }) => {
     () => dispatch(cartSliceActions.cleanCart()),
     []
   );
-  const cart = useSelector((state) => selectCartLength(state))
-  let cartLenght = Object.values(
-    cart
-  )?.reduce((acc, el) => acc + el, 0);
-  const filledDishIds = dishIds.filter(el => cart[el] != 0);
+  const cart = useSelector((state) => selectCartLength(state));
+  let cartLenght = Object.values(cart)?.reduce((acc, el) => acc + el, 0);
+  const filledDishIds = dishIds.filter((el) => cart[el] != 0);
 
   return (
     <div className={styles.cartContainer}>
@@ -39,10 +37,12 @@ export const Cart = ({ toggleFunction, result }) => {
         to="/"
         className={styles.back}></Link>
       <h2 className={classNames(styles.title)}>Корзина</h2>
-      {result != 500 && <div className={styles.account}>
-        <div className={styles.delivery}>{`Доставка: ${500}`}</div>
-        <div className={styles.result}>{`Итого: ${result}`}</div>
-      </div>}
+      {result != 500 && (
+        <div className={styles.account}>
+          <div className={styles.delivery}>{`Доставка: ${500}`}</div>
+          <div className={styles.result}>{`Итого: ${result}`}</div>
+        </div>
+      )}
       {filledDishIds.map((id) => (
         <DishContainer
           key={id}

@@ -1,9 +1,9 @@
 @keyframes rotate {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    /* 12.5% {
+  /* 12.5% {
         transform: rotate(45deg);
     }
 
@@ -31,34 +31,34 @@
         transform: rotate(360deg);
     } */
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loadingContainer {
-    position: absolute;
-    z-index: 98;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background-color: rgb(255, 255, 1);
-    display: flex;
-    justify-items: center;
-    align-items: center;
+  position: absolute;
+  z-index: 98;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgb(255, 255, 1);
+  display: flex;
+  justify-items: center;
+  align-items: center;
 }
 
 .loadingIcon {
-    background-image: url('../../../public/loader.png');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
-    margin: auto;
-    width: 100px;
-    height: 100px;
-    z-index: 99;
-    scale: 1;
-    animation: rotate 1s linear;
+  background-image: url("../../../public/loader.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  margin: auto;
+  width: 100px;
+  height: 100px;
+  z-index: 99;
+  scale: 1;
+  animation: rotate 1s linear;
 }

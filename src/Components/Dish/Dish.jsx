@@ -1,35 +1,11 @@
 import classNames from "classnames";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { dishesSliceActions } from "../../store/dish";
+import { useEffect } from "react";
+import { loadDishImageById } from "../../store/dish/Thunks/loadDishImageById";
 import styles from "./styles.module.css";
 
-export const Dish = ({ dish, increment, decrement, dishCount }) => {
-  const dispatch = useDispatch();
-
+export const Dish = ({ dish, increment, decrement, dishCount, id }) => {
   useEffect(() => {
-    fetch(
-      `http://wsuno.xyz:5680/2/15046/?s=select img from tbmenu where id=${dish.ID}`,
-      { mode: "no-cors" }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw response;
-        }
-        return response.json();
-      })
-      .then((data) => {
-        dispatch(
-          dishesSliceActions.addImg({
-            dishId: dish.ID,
-            url: `data:image/jpeg;base64,${data.toString("base64")}`,
-          }),
-          []
-        );
-      })
-      .catch((err) => {
-        // console.log(err);
-      });
+    loadDishImageById({ id, dishId: dish.ID });
   }, [dish]);
 
   return (

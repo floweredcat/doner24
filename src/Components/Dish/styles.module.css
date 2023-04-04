@@ -16,7 +16,7 @@
 }
 
 .gag {
-  background-image: url('../../../public/no-imge.jpeg');
+  background-image: url("../../../public/no-imge.jpeg");
   background-position: center;
   background-size: 90%;
   background-repeat: no-repeat;
