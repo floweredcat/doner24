@@ -4,15 +4,11 @@ import { store } from "./store";
 import { Route, Routes } from "react-router-dom";
 import { SliderContainer } from "./containers/sliderContainer/SliderContainer";
 import { Header } from "./Components/Header/Header";
-// import { Redirect } from "./pages/Redirect";
 
 export const App = () => {
   return (
     <Provider store={store}>
       <Routes>
-        {/* <Route
-          path="/"
-          element={<Redirect />}/> */}
         <Route
           path="/:idsrv/:type/:value"
           element={<Header />}
@@ -22,6 +18,9 @@ export const App = () => {
           element={<Header />}
         />
         <Route
+          path="/:idsrv/:type/:value/cart"
+          element={<SliderContainer />}></Route>
+                  <Route
           path="/cart"
           element={<SliderContainer />}></Route>
       </Routes>

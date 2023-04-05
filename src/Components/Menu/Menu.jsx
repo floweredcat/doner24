@@ -13,13 +13,10 @@ import { useLoadDishes } from "./Hooks/useLoadDishes";
 import { nanoid } from "nanoid";
 
 export const Menu = ({ id }) => {
-  const {idsrv} = useParams()
+  const {idsrv, type, value} = useParams()
   useLoadDishes({idfolder: id, idsrv});
   const isLoading = useSelector((state) => selectIsDishesLoading(state));
-  const cart = useSelector((state) => selectCartLength(state));
-  const cartLength = Object.values(cart).reduce((acc, el) => {
-    return acc + el;
-  }, 0);
+  const cartLength = useSelector((state) => selectCartLength(state));
 
   const dishes = useSelector(state => selectDishIdsByFolderId(state, {id}))
 
@@ -40,7 +37,7 @@ export const Menu = ({ id }) => {
       })}
       {cartLength > 0 && (
         <Link
-          to="/cart"
+          to={ type && value ? `/${idsrv}/${type}/${value}/cart` : "/cart"}
           className={classNames(styles.cartButton)}>{`Корзина ${cartLength} ${
           cartLength > 1 ? "товара" : "товар"
         }`}</Link>

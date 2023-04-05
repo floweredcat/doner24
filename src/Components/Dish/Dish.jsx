@@ -1,23 +1,16 @@
 import classNames from "classnames";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { loadDishImageById } from "../../store/dish/Thunks/loadDishImageById";
 import styles from "./styles.module.css";
 
-export const Dish = ({ dish, increment, decrement, dishCount, id }) => {
-  const {type} = useParams()
-  // useEffect(() => {
-  //   loadDishImageById({ id, dishId: dish.ID });
-  // }, [dish]);
+export const Dish = ({ dish, increment, decrement, dishCount, url }) => {
 
   return (
-    <div className={classNames(styles.dish)}>
+    <div className={styles.dish}>
       <div className={styles.contentContainer}>
-        {dish.url ? (
+        {url ? (
           <img
-            src={dish.url}
+            src={url}
             alt={dish.NAME}
-            className={classNames(styles.img)}
+            className={styles.img}
             loading="lazy"
           />
         ) : (
@@ -26,10 +19,10 @@ export const Dish = ({ dish, increment, decrement, dishCount, id }) => {
         <div className={styles.name}>{dish.NAME}</div>
         <div className={styles.price}>{dish.MCENA}</div>
       </div>
-      { type && (!dishCount ? (
+      { !dishCount ? (
         <button
           onClick={increment}
-          className={classNames(styles.firstAction)}>
+          className={styles.firstAction}>
           Добавить
         </button>
       ) : (
@@ -46,7 +39,7 @@ export const Dish = ({ dish, increment, decrement, dishCount, id }) => {
             +
           </button>
         </div>
-      ))}
+      )}
     </div>
   );
 };

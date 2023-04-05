@@ -12,15 +12,18 @@ import { Menu } from "../Menu/Menu";
 import { useLoadFolders } from "./Hooks/useLoadFolders";
 import { useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
+import { getIsOrderAviable } from "../../store/cart/thunks/getIsIsOrderAvialable";
+import { useDispatch } from "react-redux";
 
 export const Header = () => {
-  const {idsrv} = useParams();
+  const dispatch = useDispatch();
+  const {idsrv, type, value} = useParams();
   const isLoading = useSelector(selectFoldersIsLoading);
   const foldersIds = useSelector(selectFoldersIds);
   const [activeIndex, setActiveIndex] = useState(foldersIds[0]);
   // useEffect(() => {
-  //   setActiveIndex(foldersIds[0]);
-  // }, [foldersIds[0]]);
+  //   dispatch(getIsOrderAviable({idsrv, type, value}))
+  // }, []);
   useLoadFolders({idsrv});
 
   if (isLoading) {

@@ -13,9 +13,9 @@ export const selectIsDishesLoading = (state) =>
 
 export const selectDishes = (state) => selectDishModule(state).entities;
 
-export const selectDishPrice = (state, { dishId }) =>
-  selectDishes(state)[dishId].MCENA;
+export const selectDishPrice = (state, { dishId, idfolder }) =>
+  selectDishes(state).entities[idfolder]?.entities[dishId]?.MCENA;
 
-export const selectDishIdsByFolderId = (state, {id}) => selectDishModule(state).entities[id]?.ids
+export const selectDishIdsByFolderId = (state, {id}) => selectDishModule(state).entities[id]?.ids;
 
-
+export const selectDishUrlById = (state, {dishId}) => selectDishModule(state).images[dishId];

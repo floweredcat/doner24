@@ -73,16 +73,17 @@
   text-decoration: none;
   color: white;
   border: none;
+  cursor: pointer;
 }
 
 .button:disabled {
   background-color: gray;
-  cursor: not-allowed;
+  cursor: default;
   box-shadow: none;
 }
 
 .clean:disabled {
-  cursor: not-allowed;
+  cursor: default;
 }
 
 .account {

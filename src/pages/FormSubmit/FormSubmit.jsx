@@ -1,38 +1,61 @@
 import styles from "./styles.module.css";
 import classNames from "classnames";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-const initialValues = {
-  phone: "",
-  name: "",
-  street: "",
-  house: "",
-  flat: "",
-  entry: "",
-  floor: "",
-  comment: "",
-  change: "",
-};
+import { selectCartDishIds } from "../../store/cart/selectors";
+import { cartSliceActions } from "../../store/cart";
+import { getIsOrderAviable } from "../../store/cart/thunks/getIsIsOrderAvialable";
+import { addLocale } from "../../store/cart/thunks/addLocale";
 
 const DELIVERY_TYPES = {
   delivery: "доставка",
   pickup: "самовывоз",
 };
 
-export const FormSubmit = ({ toggleFunction, result }) => {
+
+export const FormSubmit = ({ toggleFunction }) => {
   const [deliveryType, setDeliveryType] = useState("delivery");
+  const initialValues = {
+    comments: "",
+    isdelivery: deliveryType === DELIVERY_TYPES.delivery ? 1 : 2, //req
+    name: "", //req
+    items: [], //req
+    phone: "",
+    raion: "",
+    dom: "",
+    pd: null,
+    et: null,
+    kv: "",
+  };
+  const dispatch = useDispatch();
+  const dishIds = useSelector(selectCartDishIds);
   const [isActive, setActive] = useState(false);
   const toggleActive = () => {
     setActive(!isActive);
   };
+  const items = dishIds.map(el => (
+    {
+      idmenu: el.dishId,
+      klv: el.count
+    }
+  ))
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
-      console.log(values);
+      
+          alert('success')
+
+          // Send Order for delivery
     },
   });
+
+
+  
+  const result = dishIds.reduce((acc, item) => {
+    return acc + item.amount
+  }, 500);
 
   return (
     <form
@@ -53,9 +76,9 @@ export const FormSubmit = ({ toggleFunction, result }) => {
         placeholder="Телефон"
         id="phone"
         name="phone"
-        type="number"
+        type="text"
         onChange={formik.handleChange}
-        value={formik.values.number}
+        value={formik.values.phone}
       />
       <input
         required
@@ -74,7 +97,7 @@ export const FormSubmit = ({ toggleFunction, result }) => {
         name="street"
         type="text"
         onChange={formik.handleChange}
-        value={formik.values.street}
+        value={formik.values.raion}
       />
       <div className={styles.togglesContainer}>
         <button
@@ -96,6 +119,7 @@ export const FormSubmit = ({ toggleFunction, result }) => {
           onClick={() => {
             toggleActive();
             setDeliveryType(DELIVERY_TYPES.pickup);
+            
           }}>
           Самовывоз
         </button>
@@ -152,9 +176,9 @@ export const FormSubmit = ({ toggleFunction, result }) => {
         name="comments"
         type="text"
         onChange={formik.handleChange}
-        value={formik.values.comment}
+        value={formik.values.comments}
       />
-      <input
+      {/* <input
         className={classNames(styles.input)}
         placeholder="Сдача с"
         id="change"
@@ -162,7 +186,7 @@ export const FormSubmit = ({ toggleFunction, result }) => {
         type="number"
         onChange={formik.handleChange}
         value={formik.values.change}
-      />
+      /> */}
       <button
         className={styles.button}
         type="submit">

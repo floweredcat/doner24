@@ -1,32 +1,22 @@
 import { dishesSliceActions } from "..";
 
 export const loadDishImageById =
-  ({ id, dishId }) =>
+  ({ idsrv, dishId }) =>
   (dispatch) => {
-    const url = new URL(`https://ws.1uno.kz/ws/v1/1/${id}`);
+    const url = new URL(`https://menu.qr-uno.com/api/img/${idsrv}/${dishId}.jpg`);
 
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify({
-        s: `select img from tbmenu where id=${dishId}`,
-      }),
-    };
-
-    fetch(url, options)
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw response;
         }
-        return response.json();
+        return response;
       })
-      .then((data) => {
+      .then(({url}) => {
         dispatch(
           dishesSliceActions.addImg({
             dishId,
-            url: `data:image/jpeg;base64,${data.toString("base64")}`,
+            url
           }),
           []
         );

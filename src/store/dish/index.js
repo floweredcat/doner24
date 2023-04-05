@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   entities: {},
-  ids: [],
+  images: {},
   status: "idle",
 };
 
@@ -10,9 +10,9 @@ export const dishSlice = createSlice({
   name: "dish",
   initialState,
   reducers: {
-    startLoading: () => {
+    startLoading: (state) => {
       return {
-        ...initialState,
+        ...state,
         status: "loading",
       };
     },
@@ -36,9 +36,9 @@ export const dishSlice = createSlice({
     },
     addImg: (state, action) => {
       const { dishId, url } = action.payload;
-      if (url.length > 23) {
-        state.entities[dishId].url = url;
-      }
+
+      state.images[dishId] = 
+        (state.images[dishId] ? state.images[dishId] : url);
 
       return state;
     },
