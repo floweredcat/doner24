@@ -6,5 +6,5 @@ export const useLoadDishes = ({idsrv, idfolder}) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadDishesIfNotExist({idsrv, idfolder}));
-  }, [dispatch]);
+  }, [dispatch, idfolder]);
 };

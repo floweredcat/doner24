@@ -6,13 +6,13 @@ import styles from "./styles.module.css";
 import { selectCartLength } from "../../store/cart/selectors";
 import { Loading } from "../../pages/Loading/Loading";
 import {
-  selectDishes,
+  selectDishIdsByFolderId,
   selectIsDishesLoading,
 } from "../../store/dish/selectors";
 import { useLoadDishes } from "./Hooks/useLoadDishes";
 import { nanoid } from "nanoid";
 
-export const Menu = ({ activeIndex, id }) => {
+export const Menu = ({ id }) => {
   const {idsrv} = useParams()
   useLoadDishes({idfolder: id, idsrv});
   const isLoading = useSelector((state) => selectIsDishesLoading(state));
@@ -21,10 +21,9 @@ export const Menu = ({ activeIndex, id }) => {
     return acc + el;
   }, 0);
 
-  const newDishes = Object.values(useSelector((state) => selectDishes(state)));
-  const dishes = newDishes.filter((el) => el.PID == activeIndex);
+  const dishes = useSelector(state => selectDishIdsByFolderId(state, {id}))
 
-  if (isLoading) {
+  if (isLoading ) {
     return <Loading />;
   }
 
@@ -34,8 +33,8 @@ export const Menu = ({ activeIndex, id }) => {
         return (
           <DishContainer
             key={nanoid()}
-            dishId={dish.ID}
-            id={id}
+            dishId={dish}
+            idfolder={id}
           />
         );
       })}

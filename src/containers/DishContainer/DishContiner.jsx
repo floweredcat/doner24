@@ -6,9 +6,9 @@ import { selectDishCount } from "../../store/cart/selectors";
 import { selectDishById } from "../../store/dish/selectors";
 
 
-export const DishContainer = ({dishId, ...props}) => {
-    const dishCount = useSelector(state => selectDishCount(state, { dishId }));
-    const dish = useSelector(state => selectDishById(state, {dishId}))
+export const DishContainer = ({dishId, idfolder}) => {
+    const dish = useSelector(state => selectDishById(state, {dishId, idfolder}))
+    const count = useSelector(state => selectDishCount(state, {dishId}))
 
     const dispatch = useDispatch();
 
@@ -24,8 +24,7 @@ export const DishContainer = ({dishId, ...props}) => {
             dish={dish}
             increment={increment}
             decrement={decrement}
-            dishCount={dishCount}
-            {...props}
+            dishCount={count}
         />
     )
 }

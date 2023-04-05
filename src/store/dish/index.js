@@ -17,10 +17,13 @@ export const dishSlice = createSlice({
       };
     },
     successLoading: (state, action) => {
-      const { entities, ids } = action.payload;
+      const { data, idfolder } = action.payload;
 
-      state.entities = entities;
-      state.ids = ids;
+      const {entities, ids} = data;
+
+      state.entities[idfolder] = {
+        entities, ids
+      }
       state.status = "success";
 
       return state;

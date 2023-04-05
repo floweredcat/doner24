@@ -6,9 +6,9 @@ import styles from "./styles.module.css";
 
 export const Dish = ({ dish, increment, decrement, dishCount, id }) => {
   const {type} = useParams()
-  useEffect(() => {
-    loadDishImageById({ id, dishId: dish.ID });
-  }, [dish]);
+  // useEffect(() => {
+  //   loadDishImageById({ id, dishId: dish.ID });
+  // }, [dish]);
 
   return (
     <div className={classNames(styles.dish)}>

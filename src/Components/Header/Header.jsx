@@ -17,10 +17,10 @@ export const Header = () => {
   const {idsrv} = useParams();
   const isLoading = useSelector(selectFoldersIsLoading);
   const foldersIds = useSelector(selectFoldersIds);
-  const [activeIndex, setActiveIndex] = useState();
-  useEffect(() => {
-    setActiveIndex(foldersIds[0]);
-  }, [foldersIds[0]]);
+  const [activeIndex, setActiveIndex] = useState(foldersIds[0]);
+  // useEffect(() => {
+  //   setActiveIndex(foldersIds[0]);
+  // }, [foldersIds[0]]);
   useLoadFolders({idsrv});
 
   if (isLoading) {
@@ -38,12 +38,12 @@ export const Header = () => {
               folderId={id}
               key={nanoid()}
               setActiveIndex={setActiveIndex}
-              activeIndex={activeIndex}
+              activeIndex={activeIndex || foldersIds[0]}
             />
           );
         })}
       </header>
-      <Menu activeIndex={activeIndex} id={idsrv} />
+      <Menu id={activeIndex || foldersIds[0]} />
     </>
   );
 };

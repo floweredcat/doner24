@@ -5,7 +5,6 @@ import { normolizeEntities } from "../../helpers/normolizeEntities";
 export const loadFoldersIfNotExist =
   ({ idsrv }) =>
   (dispatch, getState) => {
-    console.log(idsrv)
     if (selectFoldersIds(getState())?.length > 0) {
       return;
     }
