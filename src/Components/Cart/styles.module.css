@@ -2,11 +2,13 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 70px 0 170px;
-  position: relative;
+  padding-top: 70px;
+  /* position: relative; */
   box-sizing: border-box;
   transform: rotate(0);
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .back {
@@ -48,7 +50,7 @@
   box-sizing: border-box;
   background-color: rgba(220, 220, 220);
   position: absolute;
-  top: -20px;
+  top: 0px;
   right: 0;
   left: 0;
   z-index: 10;
@@ -56,30 +58,7 @@
   font-size: 24px;
   font-weight: 800;
   line-height: 50px;
-}
-
-.button {
-  position: fixed;
-  left: 5vw;
-  right: 5vw;
-  bottom: 15px;
-  z-index: 99;
-  background-color: #28a745;
-  box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 50%);
-  border-radius: 10px;
-  font-size: 24px;
-  line-height: 50px;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.button:disabled {
-  background-color: gray;
-  cursor: default;
-  box-shadow: none;
+  margin: 0;
 }
 
 .clean:disabled {
@@ -88,16 +67,15 @@
 
 .account {
   color: black;
-  font-size: 16px;
-  position: absolute;
-  bottom: 100px;
-  right: 15px;
+  font-size: 18px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-end;
-  background-color: white;
+  background-color: transparent;
   z-index: 10;
+  padding-bottom: 7vw;
+  margin-right: 3vw;
 }
 
 .delivery {

@@ -2,8 +2,8 @@ import React from "react";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { Route, Routes } from "react-router-dom";
-import { SliderContainer } from "./containers/sliderContainer/SliderContainer";
 import { Header } from "./Components/Header/Header";
+import { CartSlider } from "./pages/CartSlider/CartSlider";
 
 export const App = () => {
   return (
@@ -19,10 +19,10 @@ export const App = () => {
         />
         <Route
           path="/:idsrv/:type/:value/cart"
-          element={<SliderContainer />}></Route>
+          element={<CartSlider />}></Route>
                   <Route
-          path="/cart"
-          element={<SliderContainer />}></Route>
+          path="/:idsrv/cart"
+          element={<CartSlider />}></Route>
       </Routes>
     </Provider>
   );

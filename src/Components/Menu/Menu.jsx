@@ -37,7 +37,7 @@ export const Menu = ({ id }) => {
       })}
       {cartLength > 0 && (
         <Link
-          to={ type && value ? `/${idsrv}/${type}/${value}/cart` : "/cart"}
+          to={ type && value ? `/${idsrv}/${type}/${value}/cart` : `/${idsrv}/cart`}
           className={classNames(styles.cartButton)}>{`Корзина ${cartLength} ${
           cartLength > 1 ? "товара" : "товар"
         }`}</Link>

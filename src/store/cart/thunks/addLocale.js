@@ -1,4 +1,4 @@
-export const addLocale = ({idsrv, uid, items}) => {
+export const addLocale = async ({idsrv, uid, items}) => {
 
     const url = new URL(
       "https://menu.qr-uno.com/api/addlocale"
@@ -16,23 +16,11 @@ export const addLocale = ({idsrv, uid, items}) => {
       }),
     };
   
-    fetch(url, options)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-      })
-      .catch((err) => {
-        console.log(err);
-        
-      });
-  
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      return data
+    } catch (err) {
+      console.log(err);
+    }
 };
-
-// /addlocale
-// body:{
-// "idsrv": int,
-// "uid": str,
-// "items": [
-// {"idmenu": int, "klv": int }, ...
-// ]
-// }

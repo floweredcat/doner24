@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import { useState } from "react";
-import { Cart } from "../../pages/Cart";
-import { FormSubmit } from "../../pages/FormSubmit/FormSubmit";
+import { Cart } from "../../Components/Cart/Cart";
+import { FormSubmit } from "../../Components/FormSubmit/FormSubmit";
 import styles from "./styles.module.css";
 
-export const SliderContainer = () => {
+export const CartSlider = () => {
 
   const [isActive, setActive] = useState(false);
   const toggleActive = () => {

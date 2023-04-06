@@ -1,8 +1,12 @@
 import { dishesSliceActions } from "..";
+import { selectDishUrlById } from "../selectors";
 
 export const loadDishImageById =
   ({ idsrv, dishId }) =>
-  (dispatch) => {
+  (dispatch, getState) => {
+    if (selectDishUrlById(getState(), {dishId})) {
+      return;
+    }
     const url = new URL(`https://menu.qr-uno.com/api/img/${idsrv}/${dishId}.jpg`);
 
     fetch(url)

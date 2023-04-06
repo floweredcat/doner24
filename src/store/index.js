@@ -3,7 +3,6 @@ import { combineReducers } from "redux";
 import { cartSlice } from "./cart";
 import { dishSlice } from "./dish";
 import { foldersSlice } from "./folders";
-import { customThunk } from "./middlewares/CustomThunk";
 
 const rootReducer = combineReducers({
   folders: foldersSlice.reducer,
@@ -15,7 +14,6 @@ export const store = configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) => [
-    customThunk,
     ...getDefaultMiddleware(),
   ],
 });

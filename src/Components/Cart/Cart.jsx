@@ -12,9 +12,11 @@ import { useCallback } from "react";
 import { getIsOrderAviable } from "../../store/cart/thunks/getIsIsOrderAvialable";
 import { useParams } from "react-router-dom";
 import { addLocale } from "../../store/cart/thunks/addLocale";
+import { Button } from "../Button/Button";
 
 export const Cart = ({ toggleFunction }) => {
   const {idsrv, type, value} = useParams();
+  const redirectedAdress = type && value ? `/${idsrv}/${type}/${value}` : `/${idsrv}`
   const isAvialable = getIsOrderAviable({idsrv, type, value});
   const dishIds = useSelector(selectCartDishIds);
   const dispatch = useDispatch();
@@ -38,10 +40,19 @@ export const Cart = ({ toggleFunction }) => {
   const onSubmit = () => {
     isAvialable().then(data => {
       if (data.EXS) {
-        alert('success')
         addLocale({idsrv, uid: data.UID, items})
+        .then(data => {
+            if (data.OK) {
+              alert('Заказ отправлен!')
+              cleanCart()
+              navigate(redirectedAdress)
+            }
+            else {
+              alert('Упс! Что-то пошло не так...')
+            }
+          })
       }
-      else alert('error')
+      else alert('Упс! Что-то пошло не так...')
     })
     .catch(err => console.log(err))
   }
@@ -63,12 +74,6 @@ export const Cart = ({ toggleFunction }) => {
         onClick={() => navigate(-1)}
         className={styles.back}></button>
       <h2 className={classNames(styles.title)}>Корзина</h2>
-      {1 != 500 && (
-        <div className={styles.account}>
-          <div className={styles.delivery}>{`Доставка: ${500}`}</div>
-          <div className={styles.result}>{`Итого: ${result}`}</div>
-        </div>
-      )}
       {dishIds.filter(el => el.count > 0).map((el) => (
         <DishContainer
           key={el.dishId + " " + el.idfolder}
@@ -77,12 +82,14 @@ export const Cart = ({ toggleFunction }) => {
           isActive
         />
       ))}
-      <button
-        onClick={() => type && value ? onSubmit() : toggleFunction()}
-        className={styles.button}
-        disabled={cartLenght === 0}>
-        {type && value ? "Отправить заказ" : "Далее"}
-      </button>
+      {1 != 500 && (
+        <div className={styles.account}>
+          <div className={styles.delivery}>{`Доставка: ${500}`}</div>
+          <div className={styles.result}>{`Итого: ${result}`}</div>
+        </div>
+      )}
+      <Button title={type && value ? "Отправить заказ" : "Далее"} disabled={cartLenght === 0} onclick={() => type && value ? onSubmit() : toggleFunction()} />
+      
     </div>
   );
 };
