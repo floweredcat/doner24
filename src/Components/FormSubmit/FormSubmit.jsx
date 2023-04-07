@@ -2,7 +2,6 @@ import styles from "./styles.module.css";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFormik } from "formik";
 import { useState } from "react";
 import { selectCartDishIds } from "../../store/cart/selectors";
 import { addRemote } from "../../store/cart/thunks/addRemote";
