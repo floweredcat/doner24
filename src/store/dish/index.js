@@ -1,45 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    entities: {},
-    ids: [],
-    status: "idle"
-}
+  entities: {},
+  images: {},
+  status: "idle",
+};
 
 export const dishSlice = createSlice({
-    name: "dish",
-    initialState,
-    reducers: {
-        startLoading: () => {
-            return {
-                ...initialState,
-                status: "loading"
-            }
-        },
-        successLoading: (state, action) => {
-            const { entities, ids } = action.payload;
-      
-            state.entities = entities;
-            state.ids = ids;
-            state.status = "success";
-      
-            return state;
-        },
-        failLoading: () => {
-            return {
-                ...initialState,
-                status: "failLoading"
-            }
-        },
-        addImg: (state, action) => {
-            const { dishId, url } = action.payload;
-            if (url.length > 23) {
-                state.entities[dishId].url = url;
-            }
+  name: "dish",
+  initialState,
+  reducers: {
+    startLoading: (state) => {
+      return {
+        ...state,
+        status: "loading",
+      };
+    },
+    successLoading: (state, action) => {
+      const { data, idfolder } = action.payload;
 
-            return state
-        },
-    }
-})
+      const {entities, ids} = data;
 
-export const dishesSliceActions = dishSlice.actions
+      state.entities[idfolder] = {
+        entities, ids
+      }
+      state.status = "success";
+
+      return state;
+    },
+    failLoading: () => {
+      return {
+        ...initialState,
+        status: "failLoading",
+      };
+    },
+    addImg: (state, action) => {
+      const { dishId, url } = action.payload;
+
+      state.images[dishId] = 
+        (state.images[dishId] ? state.images[dishId] : url);
+
+      return state;
+    },
+  },
+});
+
+export const dishesSliceActions = dishSlice.actions;

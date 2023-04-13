@@ -1,35 +1,50 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    entities: {},
-    ids: [],
-    status: "idle"
-}
+  entities: {},
+  ids: []
+};
 
 export const cartSlice = createSlice({
-    name: "cart",
-    initialState,
-    reducers: {
-        addDish: (state, action) => {
-            const addedDishId = action.payload;
-        
-                state.entities[addedDishId] = (state.entities[addedDishId] ? state.entities[addedDishId] : 0) + 1;
-            return state
-        },
-        removeDish: (state, action) => {
-            const removedDishId = action.payload;
-            
-            state.entities[removedDishId] = !state.entities[removedDishId] || state.entities[removedDishId] === 0
-                    ? 0
-                    : state.entities[removedDishId] - 1;
-            return state
-        },
-        cleanCart: (state) => {
-            state.entities = initialState.entities;
+  name: "cart",
+  initialState,
+  reducers: {
+    addDish: (state, action) => {
+      const {dishId, idfolder, price} = action.payload;
 
-            return state
-        }
+      const count = (state.entities[dishId] ? state.entities[dishId].count : 0) + 1;
+
+      state.entities[dishId] = {
+        price,
+        dishId,
+        count,
+        idfolder,
+        amount: price * count
+      }
+      return state;
+    },
+    removeDish: (state, action) => {
+      const removedDishId = action.payload;
+
+      const count = state.entities[removedDishId].count === 0
+      ? 0
+      : state.entities[removedDishId].count - 1
+
+      state.entities[removedDishId] = {
+        price: state.entities[removedDishId].price,
+        dishId: removedDishId,
+        count,
+      idfolder: state.entities[removedDishId].idfolder,
+          amount: state.entities[removedDishId].price * count
+      }
+      return state;
+    },
+    cleanCart: (state) => {
+      state.entities = initialState.entities;
+
+      return state;
     }
-})
+  },
+});
 
-export const cartSliceActions = cartSlice.actions
+export const cartSliceActions = cartSlice.actions;

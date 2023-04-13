@@ -1,131 +1,133 @@
 .input {
-    border: 1px solid rgba(220,220,220);
-    min-height: 18px;
-    padding: 2px 10px;
-    font-size: 14px;
-    line-height: 18px;
-    -webkit-appearance: none;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    box-sizing: border-box;
-    width: 100%;
+  border: 1px solid rgba(220, 220, 220);
+  min-height: 18px;
+  padding: 2px 10px;
+  font-size: 24px;
+  line-height: 28px;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  width: 100%;
+  appearance: none;
 }
 
 .input:focus {
-    outline: none;
+  outline: none;
+}
+
+.cartContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-sizing: border-box;
+  transform: rotate(0);
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .form {
-    max-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 0 auto;
-    padding: 61px 20px 170px;
-    box-sizing: border-box;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  padding: 61px 20px 170px;
+  box-sizing: border-box;
+  height: calc(95vh - 50px);
 }
 
 .button {
-    position: absolute;
-    left: 5vw;
-    right: 5vw;
-    bottom: 15px;
-    z-index: 99;
-    background-color: #28a745;
-    box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 50%);
-    border-radius: 10px;
-    font-size: 24px;
-    line-height: 50px;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    border: none;
+  position: absolute;
+  top: calc(100vh - 50px);
+  left: 5vw;
+  right: 5vw;
+  z-index: 98;
+  background-color: #28a745;
+  box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 50%);
+  border-radius: 10px;
+  font-size: 24px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  border: pointer;
 }
 
 .inputContainer {
-    display: flex;
+  display: flex;
 }
 
 .inputContainer input {
-    width: 50%
+  width: 50%;
 }
 
 .toggle {
-    height: 30px;
-    width: 50%;
-    border: none;
-    border-radius: 15px;
-    background-color: inherit;
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
+  height: 40px;
+  width: 50%;
+  border: none;
+  border-radius: 7.5px;
+  background-color: inherit;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  font-size: 18px;
+  line-height: 40px;
+  color: white;
 }
 .toggleActive {
-    background-color: gray;
+  background-color: #0353A4;
 }
 
 .togglesContainer {
-    background-color: rgba(220,220,220);
-    height: 30px;
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 15px;
-    border: none;
-}
-
-.title {
-    width: 100%;
-    background-color: rgba(220,220,220);
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 10;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 800;
-    line-height: 50px;
-    margin: 0;
+  background-color: gray;
+  height: 40px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 7.5px;
+  border: none;
 }
 
 .back {
-    background-image: url("../../../public/back.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: absolute;
-    top: 0px;
-    left: 0;
-    height: 50px;
-    width: 50px;
-    appearance: none;
-    border: none;
-    outline: none;
-    z-index: 11;
-    background-color: rgba(220,220,220);
-    cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 40px;
+  width: 50px;
+  appearance: none;
+  border: none;
+  outline: none;
+  z-index: 11;
+  background-color: rgba(220, 220, 220);
+  cursor: pointer;
 }
 
 .account {
-    color: black;
-    font-size: 16px;
-    position: absolute;
-    bottom: 100px;
-    right: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-end;
-    background-color: white;
-    z-index: 10;
+  color: #1B1A3D;
+  font-size: 16px;
+  position: absolute;
+  bottom: 100px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  background-color: white;
+  z-index: 10;
+  margin-top: 24px;
 }
 
 .delivery {
-    width: fit-content;
+  width: fit-content;
 }
 
 .result {
-    width: fit-content;
-    font-weight: 600;
-    font-size: 24px;
+  width: fit-content;
+  font-weight: 600;
+  font-size: 24px;
 }

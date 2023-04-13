@@ -1,10 +1,7 @@
 import classNames from "classnames";
 import styles from "./styles.module.css";
-import { useParams } from "react-router-dom";
 
-export const Dish = ({ dish, increment, decrement, dishCount, url }) => {
-  const {type} = useParams()
-
+export const CartDish = ({ dish, increment, decrement, dishCount, url }) => {
   return (
     <div className={styles.dish}>
       <div className={styles.contentContainer}>
@@ -18,19 +15,11 @@ export const Dish = ({ dish, increment, decrement, dishCount, url }) => {
         ) : (
           <div className={styles.gag} />
         )}
-
       </div>
       <div className={styles.info}>
         <div className={styles.name}>{dish.NAME}</div>
         <div className={styles.price}>{dish.MCENA}</div>
       </div>
-      { type !== "b" && (!dishCount ? (
-        <button
-          onClick={increment}
-          className={styles.firstAction}>
-          Добавить
-        </button>
-      ) : (
         <div className={styles.actions}>
           <button
             onClick={decrement}
@@ -44,7 +33,6 @@ export const Dish = ({ dish, increment, decrement, dishCount, url }) => {
             +
           </button>
         </div>
-      ))}
     </div>
   );
 };

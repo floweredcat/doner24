@@ -2,15 +2,15 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { Dish } from "../../Components/Dish/Dish";
 import { cartSliceActions } from "../../store/cart";
 import { selectDishCount } from "../../store/cart/selectors";
 import { selectDishById, selectDishUrlById } from "../../store/dish/selectors";
 import { loadDishImageById } from "../../store/dish/Thunks/loadDishImageById";
+import { CartDish } from "../../Components/CartDish/CartDish";
 
 
-export const DishContainer = ({dishId, idfolder, isActive}) => {
-    const {idsrv, type} = useParams()
+export const CartDishContainer = ({dishId, idfolder}) => {
+  const {idsrv} = useParams()
     const dispatch = useDispatch();
     const dish = useSelector(state => selectDishById(state, {dishId, idfolder}))
     const count = useSelector(state => selectDishCount(state, {dishId, idfolder}))
@@ -30,7 +30,7 @@ export const DishContainer = ({dishId, idfolder, isActive}) => {
     }
 
     return (
-        <Dish
+        <CartDish
             dish={dish}
             increment={increment}
             decrement={decrement}

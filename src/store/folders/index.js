@@ -18,12 +18,12 @@ export const foldersSlice = createSlice({
       };
     },
     successLoading: (state, action) => {
-      const {entities, ids} = action.payload;
+      const { entities, ids } = action.payload;
       return {
         entities,
         ids,
-        status: "success"
-      }
+        status: "success",
+      };
     },
     failLoading: () => {
       return {
@@ -35,4 +35,4 @@ export const foldersSlice = createSlice({
   },
 });
 
-export const foldersSliceActions = foldersSlice.actions
+export const foldersSliceActions = foldersSlice.actions;

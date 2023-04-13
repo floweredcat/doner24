@@ -1,39 +1,50 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Link} from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { DishContainer } from "../../containers/DishContainer/DishContiner";
-import classNames from "classnames"
-import styles from "./styles.module.css"
+import classNames from "classnames";
+import styles from "./styles.module.css";
 import { selectCartLength } from "../../store/cart/selectors";
 import { Loading } from "../../pages/Loading/Loading";
-import { selectDishes, selectIsDishesLoading } from "../../store/dish/selectors";
+import {
+  selectDishIdsByFolderId,
+  selectIsDishesLoading,
+} from "../../store/dish/selectors";
 import { useLoadDishes } from "./Hooks/useLoadDishes";
-import { useEffect, useState } from "react";
-import { dishesSliceActions } from "../../store/dish";
+import { nanoid } from "nanoid";
+import { Button } from "../Button/Button";
 
-export const Menu = ({activeIndex}) => {
-  useLoadDishes();
+export const Menu = ({ id }) => {
+  const navigate = useNavigate()
+  const {idsrv, type, value} = useParams()
+  useLoadDishes({idfolder: id, idsrv});
   const isLoading = useSelector((state) => selectIsDishesLoading(state));
-  const cart = useSelector((state) => selectCartLength(state));
-  const cartLength = Object.values(cart).reduce((acc, el) => {return acc+el}, 0);
+  const cartLength = useSelector((state) => selectCartLength(state));
 
-  const newDishes = Object.values(useSelector(state => selectDishes(state)));
-  const dishes = newDishes.filter(el => el.PID == activeIndex);
+  const dishes = useSelector(state => selectDishIdsByFolderId(state, {id}))
 
-  if (isLoading) {
-    return <Loading />
+  if (isLoading ) {
+    return <Loading />;
   }
 
   return (
+    <>
     <div className={classNames(styles.dishesContainer)}>
-        {dishes?.map((dish) => {
-            return (
-                <DishContainer
-                    key={dish.ID}
-                    dishId={dish.ID}
-                />
-            );
-        })
-    }
-    {cartLength > 0 && <Link to="/cart" className={classNames(styles.cartButton)}>{`Корзина ${cartLength} ${cartLength > 1 ? 'товара' : 'товар'}`}</Link>}
-    </div> )
+      {dishes?.map((dish) => {
+        return (
+          <DishContainer
+            key={nanoid()}
+            dishId={dish}
+            idfolder={id}
+          />
+        );
+      })}
+    </div>
+          {cartLength > 0  && (
+            <Button onclick={() => navigate(type && value ? `/${idsrv}/${type}/${value}/cart` : `/${idsrv}/cart`)} 
+            title={`Корзина ${cartLength} ${
+               cartLength > 1 ? "товара" : "товар"
+              }`} />
+          )}
+          </>
+  );
 };

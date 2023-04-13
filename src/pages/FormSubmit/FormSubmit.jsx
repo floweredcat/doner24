@@ -1,61 +1,95 @@
 import styles from "./styles.module.css";
 import classNames from "classnames";
-
-import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-const initialValues = {
-  phone: "",
-  name: "",
-  street: "",
-  house: "",
-  flat: "",
-  entry: "",
-  floor: "",
-  comment: "",
-  change: "",
-};
+import { selectCartDishIds } from "../../store/cart/selectors";
+import { addRemote } from "../../store/cart/thunks/addRemote";
+import { cartSliceActions } from "../../store/cart";
+import { Button } from "../../Components/Button/Button";
+import { CartHeader } from "../../Components/CartHeader/CartHeader";
 
 const DELIVERY_TYPES = {
   delivery: "доставка",
   pickup: "самовывоз",
 };
 
-export const FormSubmit = ({ toggleFunction, result }) => {
+export const FormSubmit = () => {
+  const {idsrv, type, value} = useParams();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [deliveryType, setDeliveryType] = useState("delivery");
+  const redirectedAdress = type && value ? `/${idsrv}/${type}/${value}` : `/${idsrv}`
+  const dishIds = useSelector(selectCartDishIds);
+  const items = dishIds.map(el => (
+    {
+      idmenu: el.dishId,
+      klv: el.count
+    }
+  ))
+  const initialValues = {
+    comments: "",
+    idsrv: idsrv,
+    isdelivery: deliveryType === DELIVERY_TYPES.delivery, //req
+    name: "", //req
+    items, //req
+    phone: "",
+    raion: "",
+    dom: "",
+    pd: null,
+    et: null,
+    kv: "",
+  };
+  const [form, setForm] = useState(initialValues)
   const [isActive, setActive] = useState(false);
   const toggleActive = () => {
     setActive(!isActive);
   };
-  const formik = useFormik({
-    initialValues,
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addRemote(form)
+    .then(data => {
+      setForm(initialValues);
+      if (data.OK) {
+        alert('Спасибо за заказ!')
+        dispatch(cartSliceActions.cleanCart());
+        navigate(redirectedAdress)
+      }
+      else {
+        alert('Упс! Что-то пошло не так(')
+      }
+    })
+  }
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    const {name} = e.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: newValue,
+    }));
+  };
+  const result = dishIds.reduce((acc, item) => {
+    return acc + item.amount
+  }, form.isdelivery ? 500 : 0);
 
   return (
+    <div className={styles.cartContainer}>
+      <CartHeader title={"Оформить заказ"} />
     <form
       className={styles.form}
-      onSubmit={formik.handleSubmit}>
-      <h2 className={classNames(styles.title)}>Информация</h2>
-      <button
-        type="button"
-        onClick={() => toggleFunction()}
-        className={styles.back}></button>
+      onSubmit={onSubmit}>
       <div className={styles.account}>
-        <div className={styles.delivery}>{`Доставка: ${500}`}</div>
+        {form.isdelivery && <div className={styles.delivery}>{`Доставка: ${500}`}</div>}
         <div className={styles.result}>{`Итого: ${result}`}</div>
       </div>
       <input
-        required
         className={classNames(styles.input)}
         placeholder="Телефон"
         id="phone"
         name="phone"
-        type="number"
-        onChange={formik.handleChange}
-        value={formik.values.number}
+        type="text"
+        onChange={handleChange}
+        value={form.phone}
       />
       <input
         required
@@ -64,37 +98,30 @@ export const FormSubmit = ({ toggleFunction, result }) => {
         id="name"
         name="name"
         type="text"
-        onChange={formik.handleChange}
-        value={formik.values.name}
-      />
-      <input
-        className={classNames(styles.input)}
-        placeholder="Улица\мкр"
-        id="street"
-        name="street"
-        type="text"
-        onChange={formik.handleChange}
-        value={formik.values.street}
+        onChange={handleChange}
+        value={form.name}
       />
       <div className={styles.togglesContainer}>
         <button
           type="button"
           className={classNames(styles.toggle, {
-            [styles.toggleActive]: isActive,
+            [styles.toggleActive]: form.isdelivery,
           })}
           onClick={() => {
             toggleActive();
-            setDeliveryType(DELIVERY_TYPES.delivery);
+            setForm({...form, isdelivery: true});
+            setDeliveryType(DELIVERY_TYPES.delivery)
           }}>
           Доставка
         </button>
         <button
           type="button"
           className={classNames(styles.toggle, {
-            [styles.toggleActive]: !isActive,
+            [styles.toggleActive]: !form.isdelivery,
           })}
           onClick={() => {
             toggleActive();
+            setForm({...form, isdelivery: false});
             setDeliveryType(DELIVERY_TYPES.pickup);
           }}>
           Самовывоз
@@ -102,72 +129,64 @@ export const FormSubmit = ({ toggleFunction, result }) => {
       </div>
       {deliveryType === DELIVERY_TYPES.delivery && (
         <>
-          <div className={styles.inputContainer}>
+        <input
+          className={classNames(styles.input)}
+          placeholder="Улица\мкр"
+          id="raion"
+          name="raion"
+          type="text"
+          onChange={handleChange}
+          value={form.raion}
+        />
             <input
               className={classNames(styles.input)}
               placeholder="Дом"
-              id="flat"
-              name="flat"
+              id="dom"
+              name="dom"
               type="number"
-              onChange={formik.handleChange}
-              value={formik.values.flat}
+              onChange={handleChange}
+              value={form.dom}
             />
             <input
               className={classNames(styles.input)}
               placeholder="Кв."
-              id="house"
-              name="house"
-              type="number"
-              onChange={formik.handleChange}
-              value={formik.values.house}
+              id="kv"
+              name="kv"
+              type="text"
+              onChange={handleChange}
+              value={form.kv}
             />
-          </div>
-          <div className={styles.inputContainer}>
             <input
               className={classNames(styles.input)}
               placeholder="Подъезд"
-              id="entry"
-              name="entry"
+              id="pd"
+              name="pd"
               type="number"
-              onChange={formik.handleChange}
-              value={formik.values.entry}
+              onChange={handleChange}
+              value={form.pd || ""}
             />
             <input
               className={classNames(styles.input)}
               placeholder="Этаж"
-              id="floor"
-              name="floor"
+              id="et"
+              name="et"
               type="number"
-              onChange={formik.handleChange}
-              value={formik.values.floor}
+              onChange={handleChange}
+              value={form.et || ""}
             />
-          </div>
         </>
       )}
-
       <input
         className={classNames(styles.input)}
         placeholder="Комментарии"
         id="comments"
         name="comments"
         type="text"
-        onChange={formik.handleChange}
-        value={formik.values.comment}
+        onChange={handleChange}
+        value={form.comments}
       />
-      <input
-        className={classNames(styles.input)}
-        placeholder="Сдача с"
-        id="change"
-        name="change"
-        type="number"
-        onChange={formik.handleChange}
-        value={formik.values.change}
-      />
-      <button
-        className={styles.button}
-        type="submit">
-        Оформить заказ
-      </button>
     </form>
+    <Button title={"Оформить заказ"} onclick={onSubmit} type='submit' />
+    </div>
   );
 };

@@ -1,22 +1,31 @@
 import { dishesSliceActions } from "../../dish/index";
-import { selectDishIds } from "../selectors";
+import { selectFolderLength } from "../selectors";
 import { normolizeEntities } from "../../helpers/normolizeEntities";
 
-const url = new URL(
-  "http://wsuno.xyz:5680/1/15046?s=select m.id,m.pid,p.name,m.mcena,m.descr,m.img from tbmenu m join d_product p on m.idproduct=p.id"
-);
-
-export const loadDishesIfNotExist = (dispatch, getState) => {
-  if (selectDishIds(getState())?.length > 0) {
+export const loadDishesIfNotExist = ({idsrv, idfolder}) => (dispatch, getState) => {
+  if (selectFolderLength(getState(), {idfolder})?.length > 0 || !idfolder) {
     return;
   }
+  const url = new URL(
+    "https://menu.qr-uno.com/api/menus"
+  )
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify({
+      idsrv, idfolder
+    }),
+  };
   dispatch(dishesSliceActions.startLoading());
 
-  fetch(url)
+  fetch(url, options)
     .then((response) => response.json())
     .then((data) => {
       dispatch(
-        dishesSliceActions.successLoading(normolizeEntities(data, "ID"))
+        dishesSliceActions.successLoading({data: normolizeEntities(data, "ID"), idfolder})
       );
     })
     .catch((err) => {

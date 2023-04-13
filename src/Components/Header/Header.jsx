@@ -10,13 +10,17 @@ import classNames from "classnames";
 import { Loading } from "../../pages/Loading/Loading";
 import { Menu } from "../Menu/Menu";
 import { useLoadFolders } from "./Hooks/useLoadFolders";
+import { useParams } from "react-router-dom";
+import { nanoid } from "nanoid";
+import { getIsOrderAviable } from "../../store/cart/thunks/getIsIsOrderAvialable";
+import { useDispatch } from "react-redux";
 
 export const Header = () => {
+  const {idsrv} = useParams();
   const isLoading = useSelector(selectFoldersIsLoading);
   const foldersIds = useSelector(selectFoldersIds);
-  const [activeIndex, setActiveIndex] = useState();
-  useEffect(() => { setActiveIndex(foldersIds[0])}, [foldersIds[0]] )
-  useLoadFolders();
+  const [activeIndex, setActiveIndex] = useState(foldersIds[0]);
+  useLoadFolders({idsrv});
 
   if (isLoading) {
     return <Loading />;
@@ -31,14 +35,14 @@ export const Header = () => {
           return (
             <Folder
               folderId={id}
-              key={id}
+              key={nanoid()}
               setActiveIndex={setActiveIndex}
-              activeIndex={activeIndex}
+              activeIndex={activeIndex || foldersIds[0]}
             />
           );
         })}
       </header>
-      <Menu activeIndex={activeIndex} />
+      <Menu id={activeIndex || foldersIds[0]} />
     </>
   );
 };
