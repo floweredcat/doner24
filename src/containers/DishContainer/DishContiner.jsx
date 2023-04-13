@@ -36,6 +36,7 @@ export const DishContainer = ({dishId, idfolder, isActive}) => {
             decrement={decrement}
             dishCount={count}
             url={url}
+            isActive={isActive}
         />
     )
 }

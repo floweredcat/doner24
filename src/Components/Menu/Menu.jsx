@@ -12,8 +12,12 @@ import {
 import { useLoadDishes } from "./Hooks/useLoadDishes";
 import { nanoid } from "nanoid";
 import { Button } from "../Button/Button";
+import { selectOrgType } from "../../store/organization/selectors";
+// import { useEffect } from "react";
+// import { getOrgInfo } from "../../store/folders/thunks/getOrgInfo";
 
 export const Menu = ({ id }) => {
+
   const navigate = useNavigate()
   const {idsrv, type, value} = useParams()
   useLoadDishes({idfolder: id, idsrv});
@@ -21,6 +25,7 @@ export const Menu = ({ id }) => {
   const cartLength = useSelector((state) => selectCartLength(state));
 
   const dishes = useSelector(state => selectDishIdsByFolderId(state, {id}))
+  const workType = useSelector(state => selectOrgType(state));
 
   if (isLoading ) {
     return <Loading />;
@@ -35,11 +40,12 @@ export const Menu = ({ id }) => {
             key={nanoid()}
             dishId={dish}
             idfolder={id}
+            isActive={workType != 0}
           />
         );
       })}
     </div>
-          {cartLength > 0  && (
+          {cartLength > 0 && (
             <Button onclick={() => navigate(type && value ? `/${idsrv}/${type}/${value}/cart` : `/${idsrv}/cart`)} 
             title={`Корзина ${cartLength} ${
                cartLength > 1 ? "товара" : "товар"

@@ -2,7 +2,7 @@ import classNames from "classnames";
 import styles from "./styles.module.css";
 import { useParams } from "react-router-dom";
 
-export const Dish = ({ dish, increment, decrement, dishCount, url }) => {
+export const Dish = ({ dish, increment, decrement, dishCount, url, isActive }) => {
   const {type} = useParams()
 
   return (
@@ -24,7 +24,7 @@ export const Dish = ({ dish, increment, decrement, dishCount, url }) => {
         <div className={styles.name}>{dish.NAME}</div>
         <div className={styles.price}>{dish.MCENA}</div>
       </div>
-      { type !== "b" && (!dishCount ? (
+      { isActive && (!dishCount ? (
         <button
           onClick={increment}
           className={styles.firstAction}>

@@ -70,7 +70,7 @@ export const Cart = () => {
       </div>
     </div>
     <div>
-    {1 != 0 && (
+    {result != 0 && (
         <div className={styles.account}>
           <div className={styles.result}>{`Итого: ${result}`}</div>
         </div>
