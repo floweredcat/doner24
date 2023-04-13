@@ -6,14 +6,15 @@ import { useState } from "react";
 import { selectCartDishIds } from "../../store/cart/selectors";
 import { addRemote } from "../../store/cart/thunks/addRemote";
 import { cartSliceActions } from "../../store/cart";
-import { Button } from "../Button/Button";
+import { Button } from "../../Components/Button/Button";
+import { CartHeader } from "../../Components/CartHeader/CartHeader";
 
 const DELIVERY_TYPES = {
   delivery: "доставка",
   pickup: "самовывоз",
 };
 
-export const FormSubmit = ({ toggleFunction }) => {
+export const FormSubmit = () => {
   const {idsrv, type, value} = useParams();
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -69,20 +70,16 @@ export const FormSubmit = ({ toggleFunction }) => {
   };
   const result = dishIds.reduce((acc, item) => {
     return acc + item.amount
-  }, 500);
+  }, form.isdelivery ? 500 : 0);
 
   return (
     <div className={styles.cartContainer}>
+      <CartHeader title={"Оформить заказ"} />
     <form
       className={styles.form}
       onSubmit={onSubmit}>
-      <h2 className={classNames(styles.title)}>Информация</h2>
-      <button
-        type="button"
-        onClick={() => toggleFunction()}
-        className={styles.back}></button>
       <div className={styles.account}>
-        <div className={styles.delivery}>{`Доставка: ${500}`}</div>
+        {form.isdelivery && <div className={styles.delivery}>{`Доставка: ${500}`}</div>}
         <div className={styles.result}>{`Итого: ${result}`}</div>
       </div>
       <input
@@ -108,7 +105,7 @@ export const FormSubmit = ({ toggleFunction }) => {
         <button
           type="button"
           className={classNames(styles.toggle, {
-            [styles.toggleActive]: isActive,
+            [styles.toggleActive]: form.isdelivery,
           })}
           onClick={() => {
             toggleActive();
@@ -120,7 +117,7 @@ export const FormSubmit = ({ toggleFunction }) => {
         <button
           type="button"
           className={classNames(styles.toggle, {
-            [styles.toggleActive]: !isActive,
+            [styles.toggleActive]: !form.isdelivery,
           })}
           onClick={() => {
             toggleActive();

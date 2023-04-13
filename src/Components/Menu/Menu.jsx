@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DishContainer } from "../../containers/DishContainer/DishContiner";
 import classNames from "classnames";
 import styles from "./styles.module.css";
@@ -11,8 +11,10 @@ import {
 } from "../../store/dish/selectors";
 import { useLoadDishes } from "./Hooks/useLoadDishes";
 import { nanoid } from "nanoid";
+import { Button } from "../Button/Button";
 
 export const Menu = ({ id }) => {
+  const navigate = useNavigate()
   const {idsrv, type, value} = useParams()
   useLoadDishes({idfolder: id, idsrv});
   const isLoading = useSelector((state) => selectIsDishesLoading(state));
@@ -25,6 +27,7 @@ export const Menu = ({ id }) => {
   }
 
   return (
+    <>
     <div className={classNames(styles.dishesContainer)}>
       {dishes?.map((dish) => {
         return (
@@ -35,13 +38,13 @@ export const Menu = ({ id }) => {
           />
         );
       })}
-      {cartLength > 0 && (
-        <Link
-          to={ type && value ? `/${idsrv}/${type}/${value}/cart` : `/${idsrv}/cart`}
-          className={classNames(styles.cartButton)}>{`Корзина ${cartLength} ${
-          cartLength > 1 ? "товара" : "товар"
-        }`}</Link>
-      )}
     </div>
+          {cartLength > 0  && (
+            <Button onclick={() => navigate(type && value ? `/${idsrv}/${type}/${value}/cart` : `/${idsrv}/cart`)} 
+            title={`Корзина ${cartLength} ${
+               cartLength > 1 ? "товара" : "товар"
+              }`} />
+          )}
+          </>
   );
 };

@@ -1,0 +1,65 @@
+.dish {
+  display: flex;
+  height: 90px;
+  justify-content: space-between;
+  max-width: 600px;
+  width: 90vw;
+  margin: 0 auto;
+  gap: 15px;
+}
+
+.info {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90%;
+  align-self: center;
+}
+
+.action:hover {
+  border: 1px solid black;
+  transition: all 400ms ease;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  width: 100px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.action {
+  border-radius: 7.5px;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  height: 30px;
+  width: 30px;
+  background-color: inherit;
+  cursor: pointer;
+  transition: all 400ms ease;
+}
+
+.action_down {
+  transition: all 400ms ease;
+}
+
+.img {
+  width: 120px;
+  height: 90px;
+  border-radius: 5%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.gag {
+  background-image: url("../../../public/no-imge.jpeg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 120px;
+  height: 90px;
+  border-radius: 5%;
+}

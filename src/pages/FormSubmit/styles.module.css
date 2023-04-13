@@ -21,7 +21,6 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding-top: 70px;
   box-sizing: border-box;
   transform: rotate(0);
   height: 100vh;
@@ -67,53 +66,38 @@
 }
 
 .toggle {
-  height: 30px;
+  height: 40px;
   width: 50%;
   border: none;
-  border-radius: 15px;
+  border-radius: 7.5px;
   background-color: inherit;
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
   font-size: 18px;
-  line-height: 30px;
+  line-height: 40px;
+  color: white;
 }
 .toggleActive {
-  background-color: gray;
+  background-color: #0353A4;
 }
 
 .togglesContainer {
-  background-color: rgba(220, 220, 220);
-  height: 30px;
+  background-color: gray;
+  height: 40px;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 15px;
+  border-radius: 7.5px;
   border: none;
 }
 
-.title {
-  width: 100%;
-  background-color: rgba(220, 220, 220);
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 10;
-  text-align: center;
-  font-size: 24px;
-  font-weight: 800;
-  line-height: 50px;
-  margin: 0;
-}
-
 .back {
-  background-image: url("../../../public/back.png");
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
   top: 0px;
   left: 0;
-  height: 50px;
+  height: 40px;
   width: 50px;
   appearance: none;
   border: none;
@@ -124,7 +108,7 @@
 }
 
 .account {
-  color: black;
+  color: #1B1A3D;
   font-size: 16px;
   position: absolute;
   bottom: 100px;
@@ -135,6 +119,7 @@
   align-items: flex-end;
   background-color: white;
   z-index: 10;
+  margin-top: 24px;
 }
 
 .delivery {

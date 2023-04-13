@@ -16,14 +16,10 @@ import { getIsOrderAviable } from "../../store/cart/thunks/getIsIsOrderAvialable
 import { useDispatch } from "react-redux";
 
 export const Header = () => {
-  const dispatch = useDispatch();
-  const {idsrv, type, value} = useParams();
+  const {idsrv} = useParams();
   const isLoading = useSelector(selectFoldersIsLoading);
   const foldersIds = useSelector(selectFoldersIds);
   const [activeIndex, setActiveIndex] = useState(foldersIds[0]);
-  // useEffect(() => {
-  //   dispatch(getIsOrderAviable({idsrv, type, value}))
-  // }, []);
   useLoadFolders({idsrv});
 
   if (isLoading) {
