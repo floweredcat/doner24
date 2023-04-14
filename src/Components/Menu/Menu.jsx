@@ -26,6 +26,15 @@ export const Menu = ({ id }) => {
 
   const dishes = useSelector(state => selectDishIdsByFolderId(state, {id}))
   const workType = useSelector(state => selectOrgType(state));
+  const getButtonTitle = () => {
+    if (cartLength === 1) {
+      return "товар"
+    }
+    if (cartLength > 1 && cartLength < 5) {
+      return "товара"
+    }
+    else return "товаров"
+  }
 
   if (isLoading ) {
     return <Loading />;
@@ -45,12 +54,11 @@ export const Menu = ({ id }) => {
         );
       })}
     </div>
-          {cartLength > 0 && (
             <Button onclick={() => navigate(type && value ? `/${idsrv}/${type}/${value}/cart` : `/${idsrv}/cart`)} 
             title={`Корзина ${cartLength} ${
-               cartLength > 1 ? "товара" : "товар"
-              }`} />
-          )}
+              getButtonTitle()
+              }`} 
+              isActive={cartLength > 0}/>
           </>
   );
 };

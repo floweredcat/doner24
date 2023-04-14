@@ -10,15 +10,6 @@ export const CartHeader = ({title}) => {
         type="button"
         onClick={() => navigate(-1)}
         className={styles.back}>Назад</button>
-        {/* <button
-          onClick={() => {
-            if (window.confirm("Очистить корзину?")) {
-              cleanCart();
-              navigate(-1);
-            }
-          } }
-          disabled={cartLenght === 0}
-          className={styles.clean}></button> */}
         </div>
   )
 }

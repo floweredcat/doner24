@@ -1,5 +1,5 @@
 .content_container {
-  width: calc(90vw / 4 - 45px)
+  width: calc(90vw / 4 - 45px);
 }
 
 .dish {
@@ -12,6 +12,7 @@
   /* padding: 10px; */
   border-radius: 7.5px;
   transition: all 200ms ease-in-out;
+  background-color: white;
 }
 
 .dish:hover, .dish:active {
@@ -80,7 +81,7 @@
   height: 50px;
   align-self: center;
   background-color: inherit;
-  background-color: #0353A4;
+  background-color: #0353A3;
   border: 1px solid white;
   color: white;
   border-radius: 0 0 7.5px 7.5px;
@@ -94,7 +95,7 @@
 }
 
 .dish:hover .firstAction {
-  border: 1px solid #0353A4;
+  border: 1px solid #0353A3;
   transition: all 400ms ease;
 }
 
@@ -103,7 +104,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
-  height: 96px;
+  height: 86px;
   padding: 0 10px;
   margin-bottom: 5px;
 }

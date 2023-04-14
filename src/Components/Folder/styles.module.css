@@ -16,13 +16,14 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  background-color: transparent;
 }
 
 .link:hover {
-  background-color: rgba(3, 83, 164, 0.6);
-  color: #1B1A3D;
-  transition: all 0.5s ease;
   cursor: pointer;
+  background-color: rgba(6, 143, 186, 0.6);
+  color: white;
+  transition: all 0.5s ease;
 }
 
 .link:focus,
@@ -32,10 +33,14 @@
 
 .linkActive {
   color: white;
-  background-color: #0353A4;
+  font-weight: 700;
+  background-color: #068FBA;
 }
 
 .linkActive:hover {
-  background-color: #0353A4;
+  background-color: rgba(6, 143, 186, 0.6);
+  color: white;
+  font-weight: 700;
   transition: all 0.5s ease;
+  cursor: pointer;
 }

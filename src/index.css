@@ -24,6 +24,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #1B1A3D;
+  background-color: rgba(223, 223, 223, 0.3)
 }
 
 input {

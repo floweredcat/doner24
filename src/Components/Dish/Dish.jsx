@@ -1,9 +1,7 @@
 import classNames from "classnames";
 import styles from "./styles.module.css";
-import { useParams } from "react-router-dom";
 
 export const Dish = ({ dish, increment, decrement, dishCount, url, isActive }) => {
-  const {type} = useParams()
 
   return (
     <div className={styles.dish}>

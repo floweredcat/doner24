@@ -6,11 +6,9 @@ import {
 import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
 import { cartSliceActions } from "../../store/cart";
-import { useCallback } from "react";
 import { getIsOrderAviable } from "../../store/cart/thunks/getIsIsOrderAvialable";
 import { useParams } from "react-router-dom";
 import { addLocale } from "../../store/cart/thunks/addLocale";
-import {Button} from '../../Components/Button/Button'
 import { CartDishContainer } from "../../containers/CartDishContainer/CartDishContainer";
 import { CartHeader } from "../../Components/CartHeader/CartHeader";
 
@@ -54,33 +52,37 @@ export const Cart = () => {
     .catch(err => console.log(err))
   }
 
+  const dishesInCart = dishIds.filter(el => el.count > 0)
+
 
   return (
     <div className={styles.cart}>
       <div className={styles.dishesWrapper}>
     <div className={styles.cartContainer}>
     <CartHeader title={"Корзина"} />
-      {dishIds.filter(el => el.count > 0).map((el) => (
+      {dishesInCart.map((el) => (
         <CartDishContainer
           key={el.dishId + " " + el.idfolder}
           dishId={el.dishId}
           idfolder={el.idfolder}
           isActive />
       ))}
-      </div>
-    </div>
-    <div>
-    {result != 0 && (
+            {result != 0 && (
         <div className={styles.account}>
           <div className={styles.result}>{`Итого: ${result}`}</div>
         </div>
       )}
-    <Button 
-    title={type && value ? "Отправить заказ" 
-    : "Далее"} 
-    disabled={cartLenght === 0} 
-    onclick={() => type && value ? onSubmit() 
-    : navigate(`/${idsrv}/submit`)} />
+      <button 
+      className={styles.submit} 
+      disabled={dishesInCart.length === 0}
+      type="submit" 
+      onClick={() => type && value ? onSubmit() 
+      : navigate(`/${idsrv}/submit`)}
+      >{type && value 
+        ? "Отправить заказ" 
+        : "Далее"} 
+        </button>
+      </div>
     </div>
     </div>
   );

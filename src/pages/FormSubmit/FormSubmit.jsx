@@ -45,20 +45,30 @@ export const FormSubmit = () => {
   const toggleActive = () => {
     setActive(!isActive);
   };
+  const isdelivery = deliveryType === DELIVERY_TYPES.delivery
   const onSubmit = (e) => {
     e.preventDefault();
-    addRemote(form)
-    .then(data => {
-      setForm(initialValues);
-      if (data.OK) {
-        alert('Спасибо за заказ!')
-        dispatch(cartSliceActions.cleanCart());
-        navigate(redirectedAdress)
+    handleValudate().then(res => {
+      if(res) {
+        addRemote(form)
+        .then(data => {
+          setForm(initialValues);
+          console.log(data)
+          if (data.OK) {
+            alert('Спасибо за заказ!')
+            dispatch(cartSliceActions.cleanCart());
+            navigate(redirectedAdress);
+          }
+          else {
+            alert('Упс! Что-то пошло не так(')
+          }
+        })
       }
       else {
-        alert('Упс! Что-то пошло не так(')
+        alert('Необходимо заполнить форму')
       }
     })
+
   }
   const handleChange = (e) => {
     const newValue = e.target.value;
@@ -72,36 +82,43 @@ export const FormSubmit = () => {
     return acc + item.amount
   }, form.isdelivery ? 500 : 0);
 
+  const handleValudate = async () => {
+    if (!isdelivery) {
+      console.log(isdelivery)
+      return form.phone.length >= 10 && form.name.length >= 2 && form.items.length !==0
+    }
+    else return (
+    form.phone.length >= 10 
+    && form.name.length >= 2 
+    && form.items.length !==0 
+    && form.raion.length >=2
+    && form.kv 
+    && form.pd
+    && form.et
+    && form.dom 
+    )
+
+
+    // comments: "",
+    // idsrv: idsrv,
+    // isdelivery: deliveryType === DELIVERY_TYPES.delivery, //req
+    // name: "", //req
+    // items, //req
+    // phone: "",
+    // raion: "",
+    // dom: "",
+    // pd: null,
+    // et: null,
+    // kv: "",
+  }
+
   return (
     <div className={styles.cartContainer}>
-      <CartHeader title={"Оформить заказ"} />
     <form
       className={styles.form}
       onSubmit={onSubmit}>
-      <div className={styles.account}>
-        {form.isdelivery && <div className={styles.delivery}>{`Доставка: ${500}`}</div>}
-        <div className={styles.result}>{`Итого: ${result}`}</div>
-      </div>
-      <input
-        className={classNames(styles.input)}
-        placeholder="Телефон"
-        id="phone"
-        name="phone"
-        type="text"
-        onChange={handleChange}
-        value={form.phone}
-      />
-      <input
-        required
-        className={classNames(styles.input)}
-        placeholder="Имя"
-        id="name"
-        name="name"
-        type="text"
-        onChange={handleChange}
-        value={form.name}
-      />
-      <div className={styles.togglesContainer}>
+      <CartHeader title={"Оформить заказ"} />
+        <div className={styles.togglesContainer}>
         <button
           type="button"
           className={classNames(styles.toggle, {
@@ -127,7 +144,29 @@ export const FormSubmit = () => {
           Самовывоз
         </button>
       </div>
-      {deliveryType === DELIVERY_TYPES.delivery && (
+      <input
+        className={classNames(styles.input)}
+        placeholder="Телефон"
+        id="phone"
+        name="phone"
+        type="text"
+        onChange={handleChange}
+        value={form.phone}
+        required
+        minLength={9}
+      />
+      <input
+        required
+        minLength={2}
+        className={classNames(styles.input)}
+        placeholder="Имя"
+        id="name"
+        name="name"
+        type="text"
+        onChange={handleChange}
+        value={form.name}
+      />
+      {isdelivery && (
         <>
         <input
           className={classNames(styles.input)}
@@ -137,6 +176,8 @@ export const FormSubmit = () => {
           type="text"
           onChange={handleChange}
           value={form.raion}
+          required={isdelivery}
+          minLength={2}
         />
             <input
               className={classNames(styles.input)}
@@ -146,6 +187,8 @@ export const FormSubmit = () => {
               type="number"
               onChange={handleChange}
               value={form.dom}
+              required={isdelivery}
+              minLength={2}
             />
             <input
               className={classNames(styles.input)}
@@ -155,6 +198,8 @@ export const FormSubmit = () => {
               type="text"
               onChange={handleChange}
               value={form.kv}
+              required={isdelivery}
+              minLength={2}
             />
             <input
               className={classNames(styles.input)}
@@ -164,6 +209,8 @@ export const FormSubmit = () => {
               type="number"
               onChange={handleChange}
               value={form.pd || ""}
+              required={isdelivery}
+              minLength={2}
             />
             <input
               className={classNames(styles.input)}
@@ -173,6 +220,8 @@ export const FormSubmit = () => {
               type="number"
               onChange={handleChange}
               value={form.et || ""}
+              required={isdelivery}
+              minLength={2}
             />
         </>
       )}
@@ -184,9 +233,13 @@ export const FormSubmit = () => {
         type="text"
         onChange={handleChange}
         value={form.comments}
-      />
+      />    
+      <div className={styles.account}>
+        {form.isdelivery && <div className={styles.delivery}>{`Доставка: ${500}`}</div>}
+      <div className={styles.result}>{`Итого: ${result}`}</div>
+    </div>
+      <button className={styles.submit} type="submit" onClick={onSubmit}>Оформить заказ</button>
     </form>
-    <Button title={"Оформить заказ"} onclick={onSubmit} type='submit' />
     </div>
   );
 };

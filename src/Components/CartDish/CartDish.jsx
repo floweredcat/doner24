@@ -15,10 +15,10 @@ export const CartDish = ({ dish, increment, decrement, dishCount, url }) => {
         ) : (
           <div className={styles.gag} />
         )}
-      </div>
-      <div className={styles.info}>
-        <div className={styles.name}>{dish.NAME}</div>
-        <div className={styles.price}>{dish.MCENA}</div>
+        <div className={styles.info}>
+          <div className={styles.name}>{dish.NAME}</div>
+          <div className={styles.price}>{dish.MCENA}</div>
+        </div>
       </div>
         <div className={styles.actions}>
           <button

@@ -22,23 +22,24 @@
   justify-content: space-around;
   min-height: calc(100vh - 140px);
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr ;
+  grid-template-columns: minmax(150px, 200px) minmax(150px, 200px) minmax(150px, 200px) minmax(150px, 200px) ;
   column-gap: 15px;
   row-gap: 25px;
   padding: 60px 5px 80px;
   margin: 0 auto;
   position: relative;
+  /* background-color: rgba(5, 176, 171, 0.1) */
 }
 
 @media screen and (max-width: 780px) {
   .dishesContainer {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: minmax(150px, 200px) minmax(150px, 200px) minmax(150px, 200px);
   }
 }
 
 @media screen and (max-width: 560px) {
   .dishesContainer {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(150px, 200px) minmax(150px, 200px);
   }
 }
 

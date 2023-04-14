@@ -1,9 +1,11 @@
+
+
 .input {
   border: 1px solid rgba(220, 220, 220);
   min-height: 18px;
-  padding: 2px 10px;
-  font-size: 24px;
-  line-height: 28px;
+  padding: 15px 20px;
+  font-size: 18px;
+  line-height: 18px;
   -webkit-appearance: none;
   -ms-appearance: none;
   -moz-appearance: none;
@@ -11,6 +13,7 @@
   box-sizing: border-box;
   width: 100%;
   appearance: none;
+  border-radius: 7.5px;
 }
 
 .input:focus {
@@ -34,10 +37,13 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: 0 auto;
-  padding: 61px 20px 170px;
+  margin: 61px auto 170px;
+  padding: 30px 20px;
   box-sizing: border-box;
-  height: calc(95vh - 50px);
+  /* height: calc(95vh - 50px); */
+  border: 1px solid rgba(220, 220, 220);
+  border-radius: 15px;
+  box-shadow: 0 0 20px 0 rgba(220, 220, 220);
 }
 
 .button {
@@ -110,14 +116,14 @@
 .account {
   color: #1B1A3D;
   font-size: 16px;
-  position: absolute;
+  /* position: sticky; */
   bottom: 100px;
   right: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: flex-end;
-  background-color: white;
+  background-color: transparent;
   z-index: 10;
   margin-top: 24px;
 }
@@ -130,4 +136,39 @@
   width: fit-content;
   font-weight: 600;
   font-size: 24px;
+}
+
+.submit {
+    border: 1px solid rgba(220, 220, 220);
+  /* min-height: 18px; */
+  padding: 15px 20px;
+  font-size: 18px;
+  line-height: 18px;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  appearance: none;
+  border-radius: 7.5px;
+  background-color: #0353A4;
+  color: white;
+}
+
+.title {
+  margin: 0;
+  display: block;
+}
+
+@media screen and (max-height: 550px) {
+  .form {
+    height: fit-content;
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  .form {
+    /* padding: 0 0 100px; */
+  }
 }

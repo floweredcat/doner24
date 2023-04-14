@@ -4,14 +4,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80vw;
+  width: 100%;
   margin: 0 auto;
 }
 .back {
   color: #1B1A3D;
   background-color: white;
   font-size: 18px;
-  line-height: 30px;
+  line-height: 24px;
   appearance: none;
   border: none;
   outline: none;
@@ -19,11 +19,16 @@
   cursor: pointer;
   padding: 10px;
   margin: 0;
+  transition: all 200ms ease-in-out;
+  background-color: transparent;
 }
 
 .back:active {
-  background-color: #0353A4;
+  color: #0353A4;
+  background-color: transparent;
+  text-decoration: underline;
   border-radius: 7.5px;
+  transition: all 200ms ease-in-out;
 }
 
 .title {  
@@ -31,6 +36,6 @@
   text-align: center;
   font-size: 24px;
   font-weight: 800;
-  line-height: 50px;
+  line-height: 24px;
   margin: 0;
 }

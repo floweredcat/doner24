@@ -27,6 +27,8 @@ export const addRemote = async (props) => {
     body: JSON.stringify(props),
   };
 
+  console.log(options.body)
+
   try {
     const response = await fetch(url, options);
     const data = await response.json();
