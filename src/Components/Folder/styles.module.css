@@ -1,5 +1,5 @@
 .link {
-  color: #1B1A3D;
+  color: rgba(27, 26, 61, 0.8);
   appearance: none;
   text-decoration: none;
   height: 39px;
@@ -8,7 +8,6 @@
   z-index: 10;
   border-radius: 5%;
   border: none;
-  box-shadow: 0px 0px 1px #ccc;
   align-self: stretch;
   padding: 0px 15px;
   white-space: nowrap;
@@ -21,8 +20,7 @@
 
 .link:hover {
   cursor: pointer;
-  background-color: rgba(6, 143, 186, 0.6);
-  color: white;
+  background-color: rgba(27, 26, 61, 0.1);
   transition: all 0.5s ease;
 }
 
@@ -32,15 +30,14 @@
 }
 
 .linkActive {
-  color: white;
-  font-weight: 700;
-  background-color: #068FBA;
+  color: rgba(27, 26, 61);
+  font-weight: 500;
+  background-color: var(--out-color);
 }
 
 .linkActive:hover {
   background-color: rgba(6, 143, 186, 0.6);
   color: white;
-  font-weight: 700;
   transition: all 0.5s ease;
   cursor: pointer;
 }

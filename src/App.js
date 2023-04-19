@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import { Header } from "./Components/Header/Header";
 import {Cart} from "../src/pages/Cart/Cart"
 import {FormSubmit} from "../src/pages/FormSubmit/FormSubmit"
+import { Main } from "./pages/Main/Main";
 
 export const App = () => {
   return (
@@ -29,6 +30,7 @@ export const App = () => {
           path="/:idsrv/cart"
           element={<Cart />}></Route>
           <Route path="/:idsrv/submit" element={<FormSubmit />} />
+          <Route index element={<Main />} />
       </Routes>
     </Provider>
   );

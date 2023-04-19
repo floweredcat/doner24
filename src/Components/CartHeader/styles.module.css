@@ -8,7 +8,7 @@
   margin: 0 auto;
 }
 .back {
-  color: #1B1A3D;
+  color: var(--contrast-color);
   background-color: white;
   font-size: 18px;
   line-height: 24px;

@@ -1,7 +1,9 @@
 import classNames from "classnames";
 import styles from "./styles.module.css";
+import { separateAmount } from "../../helpers/separateAmount";
+import { ActionButton } from "../../UI/ActionButton/ActionButton";
 
-export const Dish = ({ dish, increment, decrement, dishCount, url, isActive }) => {
+export const Dish = ({ dish, increment, decrement, dishCount, url, isActive, onclick }) => {
 
   return (
     <div className={styles.dish}>
@@ -12,6 +14,7 @@ export const Dish = ({ dish, increment, decrement, dishCount, url, isActive }) =
             alt={dish.NAME}
             className={styles.img}
             loading="lazy"
+            onClick={onclick}
           />
         ) : (
           <div className={styles.gag} />
@@ -20,27 +23,23 @@ export const Dish = ({ dish, increment, decrement, dishCount, url, isActive }) =
       </div>
       <div className={styles.info}>
         <div className={styles.name}>{dish.NAME}</div>
-        <div className={styles.price}>{dish.MCENA}</div>
+        <div className={styles.price}>{separateAmount(dish.MCENA)}</div>
       </div>
       { isActive && (!dishCount ? (
-        <button
-          onClick={increment}
-          className={styles.firstAction}>
-          Добавить
-        </button>
+          <ActionButton.Add onclick={increment}>
+            Добавить
+          </ActionButton.Add>
       ) : (
         <div className={styles.actions}>
-          <button
-            onClick={decrement}
-            className={classNames(styles.action, styles.action_down)}>
+          <ActionButton.Counter
+            onclick={decrement}>
             -
-          </button>
+          </ActionButton.Counter>
           {dishCount}
-          <button
-            onClick={increment}
-            className={styles.action}>
+          <ActionButton.Counter
+            onclick={increment}>
             +
-          </button>
+          </ActionButton.Counter>
         </div>
       ))}
     </div>

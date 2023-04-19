@@ -18,31 +18,12 @@
   align-self: center;
 }
 
-.action:hover {
-  border: 1px solid black;
-  transition: all 400ms ease;
-}
-
 .actions {
   display: flex;
   gap: 15px;
   align-items: center;
   width: 100px;
   justify-content: space-between;
-}
-
-.action {
-  border-radius: 7.5px;
-  border: 1px solid rgba(128, 128, 128, 0.5);
-  height: 30px;
-  width: 30px;
-  background-color: inherit;
-  cursor: pointer;
-  transition: all 400ms ease;
-}
-
-.action_down {
-  transition: all 400ms ease;
 }
 
 .img {

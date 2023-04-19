@@ -8,6 +8,8 @@ import { addRemote } from "../../store/cart/thunks/addRemote";
 import { cartSliceActions } from "../../store/cart";
 import { Button } from "../../Components/Button/Button";
 import { CartHeader } from "../../Components/CartHeader/CartHeader";
+import { separateAmount } from "../../helpers/separateAmount";
+import { Input } from "../../UI/Input/Input";
 
 const DELIVERY_TYPES = {
   delivery: "доставка",
@@ -80,11 +82,10 @@ export const FormSubmit = () => {
   };
   const result = dishIds.reduce((acc, item) => {
     return acc + item.amount
-  }, form.isdelivery ? 500 : 0);
+  }, isdelivery ? 500 : 0);
 
   const handleValudate = async () => {
     if (!isdelivery) {
-      console.log(isdelivery)
       return form.phone.length >= 10 && form.name.length >= 2 && form.items.length !==0
     }
     else return (
@@ -97,19 +98,6 @@ export const FormSubmit = () => {
     && form.et
     && form.dom 
     )
-
-
-    // comments: "",
-    // idsrv: idsrv,
-    // isdelivery: deliveryType === DELIVERY_TYPES.delivery, //req
-    // name: "", //req
-    // items, //req
-    // phone: "",
-    // raion: "",
-    // dom: "",
-    // pd: null,
-    // et: null,
-    // kv: "",
   }
 
   return (
@@ -122,7 +110,7 @@ export const FormSubmit = () => {
         <button
           type="button"
           className={classNames(styles.toggle, {
-            [styles.toggleActive]: form.isdelivery,
+            [styles.toggleActive]: isdelivery,
           })}
           onClick={() => {
             toggleActive();
@@ -134,7 +122,7 @@ export const FormSubmit = () => {
         <button
           type="button"
           className={classNames(styles.toggle, {
-            [styles.toggleActive]: !form.isdelivery,
+            [styles.toggleActive]: !isdelivery,
           })}
           onClick={() => {
             toggleActive();
@@ -144,99 +132,71 @@ export const FormSubmit = () => {
           Самовывоз
         </button>
       </div>
-      <input
-        className={classNames(styles.input)}
-        placeholder="Телефон"
-        id="phone"
-        name="phone"
-        type="text"
-        onChange={handleChange}
+      <Input
+        placeholder={"Телефон"}
+        name={"phone"}
+        handleChange={handleChange}
         value={form.phone}
         required
         minLength={9}
       />
-      <input
-        required
-        minLength={2}
-        className={classNames(styles.input)}
-        placeholder="Имя"
-        id="name"
-        name="name"
-        type="text"
-        onChange={handleChange}
+      <Input
+        placeholder={"Имя"}
+        name={"name"}
+        handleChange={handleChange}
         value={form.name}
+        required
       />
       {isdelivery && (
-        <>
-        <input
-          className={classNames(styles.input)}
-          placeholder="Улица\мкр"
-          id="raion"
-          name="raion"
-          type="text"
-          onChange={handleChange}
-          value={form.raion}
+      <>
+        <Input
+          placeholder={"Улица/мкр"}
+          name={"raion"}
+          handleChange={handleChange}
+          value={form.raion || ""}
           required={isdelivery}
-          minLength={2}
         />
-            <input
-              className={classNames(styles.input)}
-              placeholder="Дом"
-              id="dom"
-              name="dom"
-              type="number"
-              onChange={handleChange}
-              value={form.dom}
-              required={isdelivery}
-              minLength={2}
-            />
-            <input
-              className={classNames(styles.input)}
-              placeholder="Кв."
-              id="kv"
-              name="kv"
-              type="text"
-              onChange={handleChange}
-              value={form.kv}
-              required={isdelivery}
-              minLength={2}
-            />
-            <input
-              className={classNames(styles.input)}
-              placeholder="Подъезд"
-              id="pd"
-              name="pd"
-              type="number"
-              onChange={handleChange}
-              value={form.pd || ""}
-              required={isdelivery}
-              minLength={2}
-            />
-            <input
-              className={classNames(styles.input)}
-              placeholder="Этаж"
-              id="et"
-              name="et"
-              type="number"
-              onChange={handleChange}
-              value={form.et || ""}
-              required={isdelivery}
-              minLength={2}
-            />
-        </>
+        <Input
+          placeholder={"Дом"}
+          name={"dom"}
+          handleChange={handleChange}
+          value={form.dom || ""}
+          required={isdelivery}
+        />
+        <Input
+          placeholder={"Кв."}
+          name={"kv"}
+          handleChange={handleChange}
+          value={form.kv || ""}
+          required={isdelivery}
+          minLength={1}
+        />
+        <Input
+          placeholder={"Подъезд"}
+          name={"pd"}
+          handleChange={handleChange}
+          value={form.pd || ""}
+          required={isdelivery}
+        />
+        <Input
+          placeholder={"Этаж"}
+          name={"et"}
+          handleChange={handleChange}
+          value={form.et || ""}
+          required={isdelivery}
+          type={'number'}
+        />
+      </>
       )}
-      <input
-        className={classNames(styles.input)}
-        placeholder="Комментарии"
-        id="comments"
-        name="comments"
-        type="text"
-        onChange={handleChange}
-        value={form.comments}
-      />    
+      <Input
+        placeholder={"Комментарии"}
+        name={"comments"}
+        handleChange={handleChange}
+        value={form.comments || ""}
+      />
       <div className={styles.account}>
-        {form.isdelivery && <div className={styles.delivery}>{`Доставка: ${500}`}</div>}
-      <div className={styles.result}>{`Итого: ${result}`}</div>
+        {isdelivery && <div className={styles.delivery}>{`Доставка: ${500}`}</div>}
+      <div className={styles.result}>{`Итого: ${separateAmount(result)}`}</div>
     </div>
       <button className={styles.submit} type="submit" onClick={onSubmit}>Оформить заказ</button>
     </form>

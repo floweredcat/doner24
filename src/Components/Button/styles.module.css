@@ -12,30 +12,26 @@
 }
 
 .button {
-  background-color: #068FBA;
-  box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 50%);
+  background-color: #FFE07A;
+  box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 40%);
   border-radius: 10px;
   font-size: 24px;
   line-height: 50px;
   text-align: center;
-  text-decoration: none;
-  color: white;
   border: none;
   appearance: none;
   outline: none;
   cursor: pointer;
   width: 100%;
-  margin-bottom: 5vw; 
-  transition: all 200ms ease-in-out;
-  opacity: 0;
+  margin-bottom: 25px;
+  display: none;
 }
 
 .button_active {
-  opacity: 1;
-  transition: all 100ms ease-in-out;
+  display: inline-block;
 }
 
-.button:hover {
+.button_:active:hover{
   opacity: 0.95;
   transition: all 200ms ease-in-out;
 }

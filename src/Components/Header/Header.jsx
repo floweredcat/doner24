@@ -13,6 +13,8 @@ import { useLoadFolders } from "./Hooks/useLoadFolders";
 import { useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { getOrgInfo } from "../../store/organization/thunks/getOrgInfo";
+// import { gapi } from "gapi-script";
+// import { getGoogleSheets } from "../../store/google/getGoogleSheets";
 
 export const Header = () => {
   const dispatch = useDispatch()
@@ -23,7 +25,7 @@ export const Header = () => {
   useLoadFolders({idsrv});
   useEffect(() => {
     dispatch(getOrgInfo({idsrv}))
-  }, [idsrv])
+  }, [idsrv, dispatch])
 
   if (isLoading) {
     return <Loading />;
@@ -31,6 +33,7 @@ export const Header = () => {
 
   return (
     <>
+    <div className={styles.header_wrapper}>
       <header
         id="header"
         className={classNames(styles.header)}>
@@ -40,12 +43,12 @@ export const Header = () => {
               folderId={id}
               key={nanoid()}
               setActiveIndex={setActiveIndex}
-              activeIndex={activeIndex || foldersIds[0]}
-            />
+              activeIndex={activeIndex || foldersIds[0]} />
           );
         })}
       </header>
-      <Menu id={activeIndex || foldersIds[0]} />
+    </div>
+    <Menu id={activeIndex || foldersIds[0]} />
     </>
   );
 };

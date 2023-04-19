@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectCartDishIds,
-  selectCartLength,
+  selectCartDishIds
 } from "../../store/cart/selectors";
 import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { addLocale } from "../../store/cart/thunks/addLocale";
 import { CartDishContainer } from "../../containers/CartDishContainer/CartDishContainer";
 import { CartHeader } from "../../Components/CartHeader/CartHeader";
+import { separateAmount } from "../../helpers/separateAmount";
 
 export const Cart = () => {
   const {idsrv, type, value} = useParams();
@@ -20,7 +20,6 @@ export const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cleanCart = () => dispatch(cartSliceActions.cleanCart());
-  const cartLenght = useSelector((state) => selectCartLength(state));
   const result = dishIds.reduce((acc, item) => {
     return acc + item.amount
   }, 0);
@@ -69,7 +68,7 @@ export const Cart = () => {
       ))}
             {result != 0 && (
         <div className={styles.account}>
-          <div className={styles.result}>{`Итого: ${result}`}</div>
+          <div className={styles.result}>{`Итого: ${separateAmount(result)}`}</div>
         </div>
       )}
       <button 
