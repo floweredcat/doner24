@@ -2,30 +2,35 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectFoldersIds,
+  selectFolderById,
+  selectFolderIdsByFolderId,
+  selectFolderNameById,
   selectFoldersIsLoading,
 } from "../../store/folders/selectors";
 import { Folder } from "../Folder/Folder";
 import classNames from "classnames";
 import { Loading } from "../../pages/Loading/Loading";
 import { Menu } from "../Menu/Menu";
-import { useLoadFolders } from "./Hooks/useLoadFolders";
 import { useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { getOrgInfo } from "../../store/organization/thunks/getOrgInfo";
-// import { gapi } from "gapi-script";
-// import { getGoogleSheets } from "../../store/google/getGoogleSheets";
+import { loadFoldersIfNotExist } from "../../store/folders/thunks/LoadFoldersIfNotExist";
+import { CartHeader } from "../CartHeader/CartHeader";
 
 export const Header = () => {
   const dispatch = useDispatch()
-  const {idsrv} = useParams();
+  const {idsrv, pid} = useParams();
   const isLoading = useSelector(selectFoldersIsLoading);
-  const foldersIds = useSelector(selectFoldersIds);
-  const [activeIndex, setActiveIndex] = useState(foldersIds[0]);
-  useLoadFolders({idsrv});
+  const foldersIds = useSelector(state => selectFolderIdsByFolderId(state, {pid}));
+  const [activeIndex, setActiveIndex] = useState(foldersIds?.[0])
   useEffect(() => {
+    dispatch(loadFoldersIfNotExist({idsrv, pid}));
     dispatch(getOrgInfo({idsrv}))
-  }, [idsrv, dispatch])
+  }, [idsrv, dispatch]);
+
+  const isFolderEmpty = foldersIds?.length === 0;
+  const folder = useSelector(state => selectFolderById(state, {folderId: pid}))
+
 
   if (isLoading) {
     return <Loading />;
@@ -34,21 +39,22 @@ export const Header = () => {
   return (
     <>
     <div className={styles.header_wrapper}>
-      <header
-        id="header"
+      <CartHeader title={folder?.NAME}/>
+      {!isFolderEmpty && 
+      (<header
         className={classNames(styles.header)}>
         {foldersIds?.map((id) => {
           return (
             <Folder
               folderId={id}
               key={nanoid()}
-              setActiveIndex={setActiveIndex}
-              activeIndex={activeIndex || foldersIds[0]} />
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}/>
           );
         })}
-      </header>
+      </header>)}
     </div>
-    <Menu id={activeIndex || foldersIds[0]} />
+    <Menu idfolder={isFolderEmpty ? pid : activeIndex}/>
     </>
   );
 };

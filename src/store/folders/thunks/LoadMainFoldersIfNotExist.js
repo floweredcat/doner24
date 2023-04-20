@@ -2,13 +2,13 @@ import { foldersSliceActions } from "../../folders/index";
 import { selectFoldersIds } from "../selectors";
 import { normolizeEntities } from "../../helpers/normolizeEntities";
 
-export const loadFoldersIfNotExist =
-  ({ idsrv, pid }) =>
+export const loadMainFoldersIfNotExist =
+  ({ idsrv }) =>
   (dispatch, getState) => {
     // if (selectFoldersIds(getState())?.length > 0) {
     //   return;
     // }
-    const url = "https://menu.qr-uno.com/api/folders";
+    const url = "https://menu.qr-uno.com/api//mainfolders";
 
     const options = {
       method: "POST",
@@ -16,8 +16,7 @@ export const loadFoldersIfNotExist =
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify({
-        idsrv,
-        pid
+        idsrv
         }),
     };
     dispatch(foldersSliceActions.startLoading());
@@ -25,9 +24,7 @@ export const loadFoldersIfNotExist =
     fetch(url, options)
       .then((response) => response.json())
       .then((data) => {
-        const {entities, ids} = normolizeEntities(data)
-        dispatch(foldersSliceActions.successLoading({entities, ids, pid}));
-        return ids
+        dispatch(foldersSliceActions.successMainLoading(normolizeEntities(data)));
       })
       .catch((err) => {
         console.log(err);

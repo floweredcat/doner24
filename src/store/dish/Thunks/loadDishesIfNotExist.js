@@ -3,12 +3,16 @@ import { selectFolderLength } from "../selectors";
 import { normolizeEntities } from "../../helpers/normolizeEntities";
 
 export const loadDishesIfNotExist = ({idsrv, idfolder}) => (dispatch, getState) => {
-  if (selectFolderLength(getState(), {idfolder})?.length > 0 || !idfolder) {
-    return;
-  }
+  // if (selectFolderLength(getState(), {idfolder})?.length > 0 || !idfolder) {
+  //   return;
+  // }
   const url = new URL(
     "https://menu.qr-uno.com/api/menus"
   )
+
+  if(!idfolder || !idsrv) {
+    return
+  }
 
   const options = {
     method: "POST",
@@ -20,10 +24,12 @@ export const loadDishesIfNotExist = ({idsrv, idfolder}) => (dispatch, getState) 
     }),
   };
   dispatch(dishesSliceActions.startLoading());
+  console.log(options.body)
 
   fetch(url, options)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data)
       dispatch(
         dishesSliceActions.successLoading({data: normolizeEntities(data, "ID"), idfolder})
       );

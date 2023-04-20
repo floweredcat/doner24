@@ -17,17 +17,16 @@ import { PopupContainer } from '../../containers/PopupContainer/PopupContainer'
 import {DishPopupContainer} from '../../containers/DishPopupContainer/DishPopupContainer'
 import { getButtonTitle } from "../../helpers/getCartButtonTitle";
 
-export const Menu = ({ id }) => {
-
+export const Menu = ({ idfolder }) => {
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = useState(false);
   const [currentDish, setCurrentDish] = useState(null);
   const {idsrv, type, value} = useParams()
-  useLoadDishes({idfolder: id, idsrv});
+  useLoadDishes({idfolder, idsrv});
   const isLoading = useSelector((state) => selectIsDishesLoading(state));
   const cartLength = useSelector((state) => selectCartLength(state));
 
-  const dishes = useSelector(state => selectDishIdsByFolderId(state, {id}))
+  const dishes = useSelector(state => selectDishIdsByFolderId(state, {id: idfolder}))
   const workType = useSelector(state => selectOrgType(state));
 
   const onclick = (dish) => {
@@ -48,7 +47,7 @@ export const Menu = ({ id }) => {
           <DishContainer
             key={nanoid()}
             dishId={dish}
-            idfolder={id}
+            idfolder={idfolder}
             isActive={workType != 0}
             onclick={() => onclick(dish)}
           />
@@ -65,7 +64,7 @@ export const Menu = ({ id }) => {
               <DishPopupContainer
                 key={nanoid()}
                 dishId={currentDish}
-                idfolder={id}
+                idfolder={idfolder}
                 isActive={workType != 0}
                 onclick={() => onclick()}
           />

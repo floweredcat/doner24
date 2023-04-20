@@ -12,25 +12,26 @@ export const App = () => {
     <Provider store={store}>
       <Routes>
         <Route
-          path="/:idsrv/:type/:value"
+          path="/:idsrv/:type/:value/folder/:pid"
+          element={<Header />}
+        />  
+        <Route
+          path="/:idsrv/folder/:pid"
           element={<Header />}
         />
-          <Route
-          path="/:idsrv"
-          element={<Header />}
-        />
-                  <Route
-          path="/:idsrv/:type"
+        <Route
+          path="/:idsrv/:type/folder/:pid"
           element={<Header />}
         />
         <Route
           path="/:idsrv/:type/:value/cart"
           element={<Cart />}></Route>
-                  <Route
+        <Route
           path="/:idsrv/cart"
           element={<Cart />}></Route>
-          <Route path="/:idsrv/submit" element={<FormSubmit />} />
-          <Route index element={<Main />} />
+        <Route path="/:idsrv/submit" element={<FormSubmit />} />
+        <Route path="/:idsrv/:type/:value" element={<Main />} />
+        <Route path="/:idsrv" element={<Main />} />        
       </Routes>
     </Provider>
   );

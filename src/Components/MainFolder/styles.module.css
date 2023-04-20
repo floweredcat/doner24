@@ -1,0 +1,11 @@
+.root {
+  background-color: var(--main-color);
+  border-radius: 7.5px;
+  padding: 7.5px 10px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  text-decoration: none;
+  text-align: center;
+  width: calc(100% - 20px);
+}
