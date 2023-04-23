@@ -24,12 +24,10 @@ export const loadDishesIfNotExist = ({idsrv, idfolder}) => (dispatch, getState) 
     }),
   };
   dispatch(dishesSliceActions.startLoading());
-  console.log(options.body)
 
   fetch(url, options)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data)
       dispatch(
         dishesSliceActions.successLoading({data: normolizeEntities(data, "ID"), idfolder})
       );

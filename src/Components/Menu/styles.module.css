@@ -18,8 +18,8 @@
 }
 .menu {
   position: absolute;
-  top: 50px;
-  height: calc(100vh - 49px);
+  top: 99px;
+  height: calc(100vh - 99px);
   width: 100vw;
   left: 0;
   right: 0;

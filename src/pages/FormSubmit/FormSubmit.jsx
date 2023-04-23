@@ -55,7 +55,6 @@ export const FormSubmit = () => {
         addRemote(form)
         .then(data => {
           setForm(initialValues);
-          console.log(data)
           if (data.OK) {
             alert('Спасибо за заказ!')
             dispatch(cartSliceActions.cleanCart());

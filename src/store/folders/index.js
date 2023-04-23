@@ -28,7 +28,6 @@ export const foldersSlice = createSlice({
     },
     successMainLoading: (state, action) => {
 
-        console.log(action.payload)
         const { entities, ids } = action.payload;
         return {
           entities,

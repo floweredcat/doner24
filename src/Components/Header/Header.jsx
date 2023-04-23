@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectFolderById,
   selectFolderIdsByFolderId,
-  selectFolderNameById,
   selectFoldersIsLoading,
 } from "../../store/folders/selectors";
 import { Folder } from "../Folder/Folder";
@@ -21,17 +20,17 @@ export const Header = () => {
   const dispatch = useDispatch()
   const {idsrv, pid} = useParams();
   const isLoading = useSelector(selectFoldersIsLoading);
-  const foldersIds = useSelector(state => selectFolderIdsByFolderId(state, {pid}));
-  const [activeIndex, setActiveIndex] = useState(foldersIds?.[0])
+  const foldersIds = useSelector(state => selectFolderIdsByFolderId(state, {pid}))
+  const [activeIndex, setActiveIndex] = useState();
+  
   useEffect(() => {
-    dispatch(loadFoldersIfNotExist({idsrv, pid}));
     dispatch(getOrgInfo({idsrv}))
-  }, [idsrv, dispatch]);
+    dispatch(loadFoldersIfNotExist({idsrv, pid}))
+  }, [idsrv, pid]);
 
   const isFolderEmpty = foldersIds?.length === 0;
   const folder = useSelector(state => selectFolderById(state, {folderId: pid}))
-
-
+ 
   if (isLoading) {
     return <Loading />;
   }
@@ -42,10 +41,12 @@ export const Header = () => {
       <CartHeader title={folder?.NAME}/>
       {!isFolderEmpty && 
       (<header
+      id="header"
         className={classNames(styles.header)}>
-        {foldersIds?.map((id) => {
+        {foldersIds?.map((id, idx) => {
           return (
             <Folder
+            idx={idx}
               folderId={id}
               key={nanoid()}
               activeIndex={activeIndex}
